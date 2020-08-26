@@ -52,13 +52,13 @@ create table tblAdministratorType(
 create table tblSector(
    SectorId       int            identity (1,1) primary key,   
    Name           nvarchar(100)          not null,
-   Description    nvarchar(100)          not null
+   Description    nvarchar(100)          
    )
 
 create table tblPosition(
    PositionId       int            identity (1,1) primary key,   
    Name           nvarchar(100)          not null,
-   Description    nvarchar(100)          not null
+   Description    nvarchar(100)          
    )
 
    create table tblRealizationStatus(
@@ -145,6 +145,12 @@ create table tblWorkersOnProject(
    FOREIGN KEY (CompanyUserId) REFERENCES tblCompanyUser(CompanyUserId), 
 )
 
+create table tblMasterAcount(
+   MasterAcountId      int            identity (1,1) primary key, 
+   Username            nvarchar(100)  unique  not null,
+   Password            nvarchar(max)          not null,
+)
+
 ALTER TABLE tblProject
   ADD CONSTRAINT uq_projectname UNIQUE(Name, ClientName);
 
@@ -188,3 +194,5 @@ values('0'),
 	  ('1'),
       ('2')
 
+insert into tblMasterAcount(Username, Password)
+values('WPFMaster', '4fvikKVCI/UlrU/Dio8//wU5BNg=')

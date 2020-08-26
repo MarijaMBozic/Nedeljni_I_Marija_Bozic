@@ -75,8 +75,30 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="Helpers\HashPasswordHelper.cs" />
+    <Compile Include="Models\Administrator.cs" />
+    <Compile Include="Models\AdministratorType.cs" />
+    <Compile Include="Models\RealizationStatus.cs" />
+    <Compile Include="Models\LevelOfResponsibility.cs" />
+    <Compile Include="Models\Qualifications.cs" />
+    <Compile Include="Models\MaritalStatus.cs" />
+    <Compile Include="Models\Gender.cs" />
+    <Compile Include="Models\Menager.cs" />
+    <Compile Include="Models\Position.cs" />
+    <Compile Include="Models\Project.cs" />
+    <Compile Include="Models\Role.cs" />
+    <Compile Include="Models\Sector.cs" />
     <Compile Include="Models\User.cs" />
+    <Compile Include="Models\Worker.cs" />
+    <Compile Include="Service\ServiceCode.cs" />
+    <Compile Include="ViewModels\AddNewAdminViewModel.cs" />
+    <Compile Include="ViewModels\MainWindowViewModel.cs" />
     <Compile Include="ViewModels\ViewModelBase.cs" />
+    <Compile Include="Views\AddNewAdmin.xaml.cs">
+      <DependentUpon>AddNewAdmin.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\MasterAdminView.xaml.cs">
+      <DependentUpon>MasterAdminView.xaml</DependentUpon>
+    </Compile>
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -91,6 +113,14 @@
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Page Include="Views\AddNewAdmin.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\MasterAdminView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs">
@@ -120,7 +150,7 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Views\" />
+    <Folder Include="SQL_designe\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

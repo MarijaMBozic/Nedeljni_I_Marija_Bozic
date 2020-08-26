@@ -11,20 +11,26 @@ using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace Nedeljni_I_Marija_Bozic
+namespace Nedeljni_I_Marija_Bozic.Views
 {
     /// <summary>
-    /// Interaction logic for MainWindow.xaml
+    /// Interaction logic for AddNewAdmin.xaml
     /// </summary>
-    public partial class MainWindow : Window
+    public partial class AddNewAdmin : Window
     {
-        public MainWindow()
+        public AddNewAdmin()
         {
             InitializeComponent();
-            this.DataContext = new MainWindowViewModel(this);
+            this.DataContext = new AddNewAdminViewModel(this);
+        }
+
+        private void btnQuit_Click(object sender, RoutedEventArgs e)
+        {
+            MasterAdminView master = new MasterAdminView();
+            master.Show();
+            Close();
         }
     }
 }

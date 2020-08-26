@@ -6,11 +6,9 @@ using System.Threading.Tasks;
 
 namespace Nedeljni_I_Marija_Bozic.Models
 {
-    public class Administrator:User
+    public class AdministratorType
     {
-        public int AdministratorId { get; set; }
-        public int CompanyUserId { get; set; }
         public int AdministratorTypeId { get; set; }
-        public DateTime ExpirationDate { get; set; }
+        public string Name { get; set; }
     }
 }
