@@ -266,10 +266,10 @@ namespace Nedeljni_I_Marija_Bozic.Views
                 lblValidationPassword.Visibility = Visibility.Visible;
                 lblValidationPassword.FontSize = 16;
                 lblValidationPassword.Foreground = new SolidColorBrush(Colors.Red);
-                lblValidationPassword.Content = "The password must contains at least:\n1 special characters.\n1 numbers.\n1 uppercase letter.\n1 one lowercase letter.\nMinimum length 8 characters!";
+                lblValidationPassword.Content = "The password must contains at least:\nMinimum length 6 characters!";
             }
 
-            string patternPassword = @"^(?=.*[A-Z])(?=.*[a-z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!%*#?&]{8,}$";
+            string patternPassword = @"^[A-Za-z0-9\d@$!%*#?&]{6,}$";
             Match match = Regex.Match(txtPassword.Password, patternPassword, RegexOptions.IgnoreCase);
 
             if (!match.Success)

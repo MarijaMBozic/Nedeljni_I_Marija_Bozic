@@ -172,21 +172,30 @@ namespace Nedeljni_I_Marija_Bozic.ViewModels
                     MessageBoxResult result=MessageBox.Show("Are you sure you want to save the new Administrator", "Add New Admin", MessageBoxButton.YesNo);
                     if(result == MessageBoxResult.Yes)
                     {
-                        int userId = service.AddCompanyUser(User);
-                        if (userId != 0)
+                        bool uniqueUserClinic = service.CheckUsernameClinicUser(User.Username);
+                        bool uniqueUserMaster = service.CheckUsernameMasterUser(User.Username);
+                        if (!uniqueUserClinic && !uniqueUserMaster)
                         {
-                            Admin.CompanyUserId = userId;
-                            Admin.AdministratorTypeId = selectedType.AdministratorTypeId;
-                            Admin.ExpirationDate = DateTime.Now.AddDays(7);
-
-                            if (service.AddAdminUser(Admin) != 0)
+                            int userId = service.AddCompanyUser(User);
+                            if (userId != 0)
                             {
-                                MessageBox.Show("You have successfully added new administrator");
-                                Logging.LoggAction("AddNewAdmnViewModel", "Info", "Succesfull add new Admin");
-                                MasterAdminView masterView = new MasterAdminView();
-                                masterView.Show();
-                                addNewAdminView.Close();
+                                Admin.CompanyUserId = userId;
+                                Admin.AdministratorTypeId = selectedType.AdministratorTypeId;
+                                Admin.ExpirationDate = DateTime.Now.AddDays(7);
+
+                                if (service.AddAdminUser(Admin) != 0)
+                                {
+                                    MessageBox.Show("You have successfully added new administrator");
+                                    Logging.LoggAction("AddNewAdmnViewModel", "Info", "Succesfull add new Admin");
+                                    MasterAdminView masterView = new MasterAdminView();
+                                    masterView.Show();
+                                    addNewAdminView.Close();
+                                }
                             }
+                        }
+                        else
+                        {
+                            MessageBox.Show("User name is not unique!");
                         }
                     }
                     else

@@ -45,6 +45,19 @@ AS
 	select RealizationStatusId, Name  from tblRealizationStatus
 GO
 
+CREATE PROCEDURE Check_UniqueUsernameMaster
+@Username nvarchar(100)
+AS
+	select Username from tblMasterAcount
+	where Username=@Username
+GO
+
+CREATE PROCEDURE Check_UniqueUsername
+@Username nvarchar(100)
+AS
+	select Username from tblCompanyUser
+	where Username=@Username
+GO
 
 CREATE PROCEDURE Login_MasterUser
 @Username nvarchar(100), @Password nvarchar(max)

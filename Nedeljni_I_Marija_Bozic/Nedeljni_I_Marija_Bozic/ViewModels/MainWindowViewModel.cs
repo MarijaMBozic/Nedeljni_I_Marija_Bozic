@@ -69,52 +69,10 @@ namespace Nedeljni_I_Marija_Bozic.ViewModels
                     main.Close();
 
                 }
-                //else if (MasterLogin.Login(username, password) == null)
-                //{
-                //    ClinicUser user = service.LoginUser(username, password);
-                //    if (user != null)
-                //    {
-                //        if (user.RoleId == 1)
-                //        {
-                //            if (service.FindeInstitutionByUser(user.ClinicUserId) == false)
-                //            {
-                //                MessageBox.Show("Successful login");
-                //                AddInstitutionView window = new AddInstitutionView(user, new Institution(), false);
-                //                window.Show();
-                //                main.Close();
-                //            }
-                //            else
-                //            {
-                //                MessageBox.Show("Successful login");
-                //                AdministratorView window = new AdministratorView(user);
-                //                window.Show();
-                //                main.Close();
-                //            }
-                //        }
-                //        else if (user.RoleId == 2)
-                //        {
-                //            MessageBox.Show("Successful login maintainanc");
-                //        }
-                //        else if (user.RoleId == 3)
-                //        {
-                //            MessageBox.Show("Successful login manager");
-
-                //        }
-                //        else if (user.RoleId == 4)
-                //        {
-                //            MessageBox.Show("Successful login doctor");
-                //        }
-                //        else if (user.RoleId == 5)
-                //        {
-                //            MessageBox.Show("Successful login patient");
-                //        }
-                //    }
-                //    else
-                //    {
-                //        MessageBox.Show("Wrong user or password credentials");
-                //    }
-                //}
-
+                else
+                {
+                    MessageBox.Show("Wrong credentials");
+                }
             }
             catch (Exception ex)
             {

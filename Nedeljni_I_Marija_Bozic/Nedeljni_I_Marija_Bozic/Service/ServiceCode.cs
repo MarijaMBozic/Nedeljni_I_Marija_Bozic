@@ -256,5 +256,70 @@ namespace Nedeljni_I_Marija_Bozic.Service
             return user.UserId;
         }
 
+        public bool CheckUsernameClinicUser(string userName)
+        {
+            bool result=false;
+            using (SqlConnection conn = ConnectionHelper.GetNewConnection())
+            {
+                conn.Open();
+                try
+                {
+                    using (SqlCommand cmd = conn.CreateCommand())
+                    {
+                        cmd.CommandText = "Check_UniqueUsername";
+                        cmd.CommandType = CommandType.StoredProcedure;
+                        cmd.Parameters.AddWithValue("@Username", userName);
+                        SqlDataReader reader = cmd.ExecuteReader();
+                        if (reader.Read())
+                        {
+                           result=true;
+                        }                        
+                    }
+                }
+                catch (Exception ex)
+                {
+                    System.Diagnostics.Debug.WriteLine("Exeption" + ex.Message.ToString());                    
+                    result = false;
+                }
+                finally
+                {
+                    conn.Close();
+                }               
+            }
+            return result;
+        }
+
+        public bool CheckUsernameMasterUser(string userName)
+        {
+            bool result = false;
+            using (SqlConnection conn = ConnectionHelper.GetNewConnection())
+            {
+                conn.Open();
+                try
+                {
+                    using (SqlCommand cmd = conn.CreateCommand())
+                    {
+                        cmd.CommandText = "Check_UniqueUsernameMaster";
+                        cmd.CommandType = CommandType.StoredProcedure;
+                        cmd.Parameters.AddWithValue("@Username", userName);
+                        SqlDataReader reader = cmd.ExecuteReader();
+                        if (reader.Read())
+                        {
+                            result = true;
+                        }
+                    }
+                }
+                catch (Exception ex)
+                {
+                    System.Diagnostics.Debug.WriteLine("Exeption" + ex.Message.ToString());                    
+                    result = false;
+                }
+                finally
+                {
+                    conn.Close();
+                }
+            }
+            return result;
+        }
     }
 }
