@@ -48,6 +48,6 @@
                 Width="70" HorizontalAlignment="Center" Command="{Binding Login, UpdateSourceTrigger=PropertyChanged}"
                 CommandParameter="{Binding ElementName=txtPassword}"/>
         <Button Grid.Column="11" Grid.Row="2" Name="btnRegistration" IsEnabled="true" Content="Registration" Height="20" 
-                Width="100" HorizontalAlignment="Center"/>
+                Width="100" HorizontalAlignment="Center" Click="btnRegistration_Click"/>
     </Grid>
 </Window>

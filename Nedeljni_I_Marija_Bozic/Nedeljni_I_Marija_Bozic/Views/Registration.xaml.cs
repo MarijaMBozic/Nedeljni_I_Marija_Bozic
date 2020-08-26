@@ -1,6 +1,4 @@
-﻿using Nedeljni_I_Marija_Bozic.Helpers;
-using Nedeljni_I_Marija_Bozic.ViewModels;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -18,9 +16,9 @@ using System.Windows.Shapes;
 namespace Nedeljni_I_Marija_Bozic.Views
 {
     /// <summary>
-    /// Interaction logic for AddNewAdmin.xaml
+    /// Interaction logic for Registration.xaml
     /// </summary>
-    public partial class AddNewAdmin : Window
+    public partial class Registration : Window
     {
         private bool isValidFirstName;
         private bool isValidlastName;
@@ -30,32 +28,28 @@ namespace Nedeljni_I_Marija_Bozic.Views
         private bool isValidPassword;
         private bool isValidMaritalStatus;
         private bool isValidJMBG;
-        private bool isValidAdminType;
-
-        public AddNewAdmin()
+        public Registration()
         {
             InitializeComponent();
-            this.DataContext = new AddNewAdminViewModel(this);
         }
 
         private void btnQuit_Click(object sender, RoutedEventArgs e)
         {
-            MasterAdminView master = new MasterAdminView();
-            master.Show();
+            MainWindow main = new MainWindow();
+            main.Show();
             Close();
         }
 
-        private void IsAddingNewUserEnabled()
+        private void IsRegistrationUserEnabled()
         {
             if (isValidFirstName &&
                 isValidlastName &&
                 isValidJMBG &&
-                isValidGender && 
+                isValidGender &&
                 isValidAddress &&
                 isValidMaritalStatus &&
                 isValidUsername &&
-                isValidPassword &&
-                isValidAdminType)
+                isValidPassword )
             {
                 btnSave.IsEnabled = true;
             }
@@ -91,11 +85,11 @@ namespace Nedeljni_I_Marija_Bozic.Views
                 txtFirstName.Foreground = new SolidColorBrush(Colors.Black);
                 isValidFirstName = true;
             }
-            IsAddingNewUserEnabled();
+            IsRegistrationUserEnabled();
         }
 
         private void txtLastName_TextChanged(object sender, TextChangedEventArgs e)
-        {          
+        {
             if (txtLastName.Focus())
             {
                 lblValidationLastname.Visibility = Visibility.Visible;
@@ -120,7 +114,7 @@ namespace Nedeljni_I_Marija_Bozic.Views
                 txtLastName.Foreground = new SolidColorBrush(Colors.Black);
                 isValidlastName = true;
             }
-            IsAddingNewUserEnabled();
+            IsRegistrationUserEnabled();
 
         }
 
@@ -148,7 +142,7 @@ namespace Nedeljni_I_Marija_Bozic.Views
                 txtJMBG.Foreground = new SolidColorBrush(Colors.Black);
                 isValidJMBG = true;
             }
-            IsAddingNewUserEnabled();
+            IsRegistrationUserEnabled();
         }
 
         private void cmbGender_SelectionChanged(object sender, SelectionChangedEventArgs e)
@@ -173,7 +167,7 @@ namespace Nedeljni_I_Marija_Bozic.Views
                 lblValidationGender.Foreground = new SolidColorBrush(Colors.Black);
                 isValidGender = true;
             }
-            IsAddingNewUserEnabled();
+            IsRegistrationUserEnabled();
         }
 
         private void txtAddress_TextChanged(object sender, TextChangedEventArgs e)
@@ -202,7 +196,7 @@ namespace Nedeljni_I_Marija_Bozic.Views
                 txtAddress.Foreground = new SolidColorBrush(Colors.Black);
                 isValidAddress = true;
             }
-            IsAddingNewUserEnabled();
+            IsRegistrationUserEnabled();
         }
 
         private void cmbMaritalStatus_SelectionChanged(object sender, SelectionChangedEventArgs e)
@@ -227,7 +221,7 @@ namespace Nedeljni_I_Marija_Bozic.Views
                 lblValidationMaritalStatus.Foreground = new SolidColorBrush(Colors.Black);
                 isValidMaritalStatus = true;
             }
-            IsAddingNewUserEnabled();
+            IsRegistrationUserEnabled();
         }
 
         private void txtUsername_TextChanged(object sender, TextChangedEventArgs e)
@@ -256,7 +250,7 @@ namespace Nedeljni_I_Marija_Bozic.Views
                 txtUsername.Foreground = new SolidColorBrush(Colors.Black);
                 isValidUsername = true;
             }
-            IsAddingNewUserEnabled();
+            IsRegistrationUserEnabled();
         }
 
         private void txtPassword_PasswordChanged(object sender, RoutedEventArgs e)
@@ -285,32 +279,7 @@ namespace Nedeljni_I_Marija_Bozic.Views
                 txtPassword.Foreground = new SolidColorBrush(Colors.Black);
                 isValidPassword = true;
             }
-            IsAddingNewUserEnabled();
-        }
-
-        private void cmbAdminType_SelectionChanged(object sender, SelectionChangedEventArgs e)
-        {
-            if (cmbAdminType.Focus())
-            {
-                lblValidationAdminType.Visibility = Visibility.Visible;
-                lblValidationAdminType.FontSize = 16;
-                lblValidationAdminType.Foreground = new SolidColorBrush(Colors.Red);
-                lblValidationAdminType.Content = "You have to select type!";
-            }
-
-            if (cmbAdminType.SelectedItem == null)
-            {
-                lblValidationAdminType.BorderBrush = new SolidColorBrush(Colors.Red);
-                lblValidationAdminType.Foreground = new SolidColorBrush(Colors.Red);
-                isValidAdminType = false;
-            }
-            else
-            {
-                lblValidationAdminType.BorderBrush = new SolidColorBrush(Colors.Black);
-                lblValidationAdminType.Foreground = new SolidColorBrush(Colors.Black);
-                isValidAdminType = true;
-            }
-            IsAddingNewUserEnabled();
-        }
+            IsRegistrationUserEnabled();
+        }      
     }
 }
