@@ -204,12 +204,13 @@ namespace Nedeljni_I_Marija_Bozic.Service
                         if (reader.Read())
                         {
                             user.UserId = int.Parse(reader.GetValue(0).ToString());
-                        }
+                        }                       
                     }
                 }
                 catch (Exception ex)
                 {
                     System.Diagnostics.Debug.WriteLine("Exeption" + ex.Message.ToString());
+                    Logging.LoggAction("AddNewUser", "Error", ex.ToString());
                     return 0;
                 }
                 finally
@@ -244,6 +245,7 @@ namespace Nedeljni_I_Marija_Bozic.Service
                 catch (Exception ex)
                 {
                     System.Diagnostics.Debug.WriteLine("Exeption" + ex.Message.ToString());
+                    Logging.LoggAction("AddNewAdminViewModel", "Error", ex.ToString());
                     return 0;
                 }
                 finally

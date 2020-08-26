@@ -51,48 +51,53 @@
         </Grid.RowDefinitions>
         <Label Grid.Column="1" Grid.Row="1" Grid.ColumnSpan="15" Name="lblNewAdmin" Content="Add New Administrator:" Padding="0" HorizontalAlignment="Center"/>
         <Label Grid.Column="1" Grid.Row="3" Name="lblFirstName" Content="First Name:" Padding="0" HorizontalAlignment="Right"/>
-        <Label Grid.Column="4" Grid.Row="3" Name="lblValidationFirstName" Padding="0" Grid.ColumnSpan="7" Grid.RowSpan="3" HorizontalAlignment="Right"/>
+        <Label Grid.Column="4" Grid.Row="3" Name="lblValidationFirstName" Padding="0" Grid.ColumnSpan="7" Grid.RowSpan="3" HorizontalAlignment="Left"/>
         <Label Grid.Column="1" Grid.Row="5" Name="lblLastName" Content="Last name" Padding="0" HorizontalAlignment="Right"/>
-        <Label Grid.Column="4" Grid.Row="5" Name="lblValidationLastname" Padding="0" Grid.ColumnSpan="3" Grid.RowSpan="5" HorizontalAlignment="Right"/>
+        <Label Grid.Column="4" Grid.Row="5" Name="lblValidationLastname" Padding="0" Grid.ColumnSpan="5" Grid.RowSpan="5" HorizontalAlignment="Left"/>
         <Label Grid.Column="1" Grid.Row="7" Name="lblJMBG" Content="JMBG:" Padding="0" HorizontalAlignment="Right"/>
-        <Label Grid.Column="4" Grid.Row="7" Name="lblValidationJMBG" Grid.ColumnSpan="7" Grid.RowSpan="5" Padding="0" HorizontalAlignment="Right"/>
+        <Label Grid.Column="4" Grid.Row="7" Name="lblValidationJMBG" Grid.ColumnSpan="7" Grid.RowSpan="5" Padding="0" HorizontalAlignment="Left"/>
         <Label Grid.Column="1" Grid.Row="9" Name="lblGender" Content="Gender:" Padding="0" HorizontalAlignment="Right"/>
         <Label Grid.Column="4" Grid.Row="9" Name="lblValidationGender" Grid.ColumnSpan="6" Grid.RowSpan="3" Padding="0" HorizontalAlignment="Right"/>
         <Label Grid.Column="1" Grid.Row="11" Name="lblAddress" Content="Address:" Padding="0" HorizontalAlignment="Right"/>
-        <Label Grid.Column="4" Grid.Row="11" Name="lblValidationAddress" Grid.ColumnSpan="7" Grid.RowSpan="5" Padding="0" HorizontalAlignment="Right"/>
+        <Label Grid.Column="4" Grid.Row="11" Name="lblValidationAddress" Grid.ColumnSpan="7" Grid.RowSpan="5" Padding="0" HorizontalAlignment="Left"/>
         <Label Grid.Column="1" Grid.Row="13" Name="lblMaritalStatus" Content="Marital status:" Padding="0" HorizontalAlignment="Right"/>
         <Label Grid.Column="4" Grid.Row="13" Name="lblValidationMaritalStatus" Grid.ColumnSpan="5" Grid.RowSpan="5" Padding="0" HorizontalAlignment="Left"/>
         <Label Grid.Column="1" Grid.Row="15" Name="lblUsername" Content="Username:" Padding="0" HorizontalAlignment="Right"/>
         <Label Grid.Column="4" Grid.Row="15" Name="lblValidationUsername" Grid.ColumnSpan="7" Grid.RowSpan="5" Padding="0" HorizontalAlignment="Left"/>
         <Label Grid.Column="1" Grid.Row="17" Name="lblPassword" Content="Password:" Padding="0" HorizontalAlignment="Right"/>
-        <Label Grid.Column="4" Grid.Row="17" Name="lblValidationPassword" Grid.ColumnSpan="7" Grid.RowSpan="5" Padding="0" HorizontalAlignment="Left"/>
-             
+        <Label Grid.Column="4" Grid.Row="17" Name="lblValidationPassword" Grid.ColumnSpan="7" Grid.RowSpan="5" Padding="0" HorizontalAlignment="Left"/>             
         <Label Grid.Column="11" Grid.Row="3" Name="lblAdministryType" Content="Admin type:" Padding="0" HorizontalAlignment="Right"/>
         <Label Grid.Column="4" Grid.Row="3" Name="lblValidationAdminType" Grid.ColumnSpan="7" Grid.RowSpan="5" Padding="0" HorizontalAlignment="Left"/>
-        <TextBox Grid.Column="3" Grid.Row="3" Name="txtFirstName" Height="20" Width="100"                
+        <TextBox Grid.Column="3" Grid.Row="3" Name="txtFirstName" Height="20" Width="100" 
+                 TextChanged="txtFirstName_TextChanged"
                  Text="{Binding User.FirstName, UpdateSourceTrigger=PropertyChanged}"/>
-        <TextBox Grid.Column="3" Grid.Row="5" Name="txtLastName" Height="20" Width="100"               
+        <TextBox Grid.Column="3" Grid.Row="5" Name="txtLastName" Height="20" Width="100" 
+                 TextChanged="txtLastName_TextChanged"
                  Text="{Binding User.LastName, UpdateSourceTrigger=PropertyChanged}"/>
-        <TextBox Grid.Column="3" Grid.Row="7" Name="txtJMBG" Height="20" Width="100"                 
-                 Text="{Binding User.JMBG, UpdateSourceTrigger=PropertyChanged}"/>
+        <TextBox Grid.Column="3" Grid.Row="7" Name="txtJMBG" Height="20" Width="100" 
+                 Keyboard.KeyDown="txtJMBG_KeyDown"
+                 Text="{Binding User.Jmbg, UpdateSourceTrigger=PropertyChanged}"/>
         <ComboBox Grid.Column="3" Grid.Row="9" Name="cmbGender" Height="20" Width="100" 
                   DisplayMemberPath="Name" Text="Select gender" IsEditable="True"
                   ItemsSource="{Binding GenderList, UpdateSourceTrigger=PropertyChanged}"                 
                   SelectedItem="{Binding SelectedGender, UpdateSourceTrigger=PropertyChanged}"
-                  
+                  SelectionChanged="cmbGender_SelectionChanged"
                   />   
-        <TextBox Grid.Column="3" Grid.Row="11" Name="txtAddress" Height="20" Width="100"               
+        <TextBox Grid.Column="3" Grid.Row="11" Name="txtAddress" Height="20" Width="100" 
+                 TextChanged="txtAddress_TextChanged"
                  Text="{Binding User.Address, UpdateSourceTrigger=PropertyChanged}"/>
         <ComboBox Grid.Column="3" Grid.Row="13" Name="cmbMaritalStatus" Height="20" Width="100" 
                   DisplayMemberPath="Name" Text="Marital Status" IsEditable="True"
                   ItemsSource="{Binding MaritalStatusList, UpdateSourceTrigger=PropertyChanged}"                 
                   SelectedItem="{Binding SelectedMaritalStatus, UpdateSourceTrigger=PropertyChanged}"                
+                  SelectionChanged="cmbMaritalStatus_SelectionChanged"
                   />
-        <TextBox Grid.Column="3" Grid.Row="15" Name="txtUsername" Height="20" Width="100"                     
+        <TextBox Grid.Column="3" Grid.Row="15" Name="txtUsername" Height="20" Width="100" 
+                 TextChanged="txtUsername_TextChanged"
                  Text="{Binding User.Username, UpdateSourceTrigger=PropertyChanged}"/>
         <PasswordBox Grid.Column="3" Grid.Row="17" Name="txtPassword" Height="20" Width="100"                 
-                     />
-        <Button Grid.Column="5" Grid.Row="19" Name="btnSave" Content="Add" IsEnabled="True" Height="20" 
+                     PasswordChanged="txtPassword_PasswordChanged"/>
+        <Button Grid.Column="5" Grid.Row="19" Name="btnSave" Content="Add" IsEnabled="False" Height="20" 
                 
                 Width="70" HorizontalAlignment="Left" Command="{Binding Save, UpdateSourceTrigger=PropertyChanged}"
                 CommandParameter="{Binding ElementName=txtPassword}"/>
@@ -100,6 +105,7 @@
                   DisplayMemberPath="Name" Text="Admin type" IsEditable="True"
                   ItemsSource="{Binding TypeList, UpdateSourceTrigger=PropertyChanged}"                 
                   SelectedItem="{Binding SelectedType, UpdateSourceTrigger=PropertyChanged}"                
+                  SelectionChanged="cmbAdminType_SelectionChanged"
                   />
         <Button Grid.Column="9" Grid.Row="19" Name="btnQuit" Content="Quit" IsEnabled="True" Height="20" 
                 Width="70" HorizontalAlignment="Left" Click="btnQuit_Click"/>

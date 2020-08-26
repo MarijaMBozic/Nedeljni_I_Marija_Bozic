@@ -74,6 +74,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Helpers\Logging.cs" />
     <Compile Include="Helpers\HashPasswordHelper.cs" />
     <Compile Include="Models\Administrator.cs" />
     <Compile Include="Models\AdministratorType.cs" />
@@ -150,6 +151,7 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
+    <Folder Include="LoggedInfo\" />
     <Folder Include="SQL_designe\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

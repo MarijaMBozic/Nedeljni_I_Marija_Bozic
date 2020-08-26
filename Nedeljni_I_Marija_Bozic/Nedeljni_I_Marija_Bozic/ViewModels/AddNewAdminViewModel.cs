@@ -1,4 +1,5 @@
 ﻿using Nedeljni_I_Marija_Bozic.Command;
+using Nedeljni_I_Marija_Bozic.Helpers;
 using Nedeljni_I_Marija_Bozic.Models;
 using Nedeljni_I_Marija_Bozic.Service;
 using Nedeljni_I_Marija_Bozic.Views;
@@ -168,21 +169,32 @@ namespace Nedeljni_I_Marija_Bozic.ViewModels
                     User.MaritalStatusId = selectedMaritalStatus.MaritalStatusId;
                     User.RoleId = 2;
 
-                    int userId = service.AddCompanyUser(User);
-                    if (userId != 0)
+                    MessageBoxResult result=MessageBox.Show("Are you sure you want to save the new Administrator", "Add New Admin", MessageBoxButton.YesNo);
+                    if(result == MessageBoxResult.Yes)
                     {
-                        Admin.CompanyUserId = userId;
-                        Admin.AdministratorTypeId = selectedType.AdministratorTypeId;
-                        Admin.ExpirationDate = DateTime.Now.AddDays(7);
-
-                        if (service.AddAdminUser(Admin) != 0)
+                        int userId = service.AddCompanyUser(User);
+                        if (userId != 0)
                         {
-                            MessageBox.Show("You have successfully added new administrator");
-                            MasterAdminView masterView = new MasterAdminView();
-                            masterView.Show();
-                            addNewAdminView.Close();
+                            Admin.CompanyUserId = userId;
+                            Admin.AdministratorTypeId = selectedType.AdministratorTypeId;
+                            Admin.ExpirationDate = DateTime.Now.AddDays(7);
+
+                            if (service.AddAdminUser(Admin) != 0)
+                            {
+                                MessageBox.Show("You have successfully added new administrator");
+                                Logging.LoggAction("AddNewAdmnViewModel", "Info", "Succesfull add new Admin");
+                                MasterAdminView masterView = new MasterAdminView();
+                                masterView.Show();
+                                addNewAdminView.Close();
+                            }
                         }
                     }
+                    else
+                    {
+                        MasterAdminView masterView = new MasterAdminView();
+                        masterView.Show();
+                        addNewAdminView.Close();
+                    }                    
                 }
             }
             catch (Exception ex)
