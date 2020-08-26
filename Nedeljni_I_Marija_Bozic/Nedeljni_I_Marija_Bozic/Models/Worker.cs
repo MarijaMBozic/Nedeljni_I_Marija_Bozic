@@ -9,6 +9,7 @@ namespace Nedeljni_I_Marija_Bozic.Models
     public class Worker:User
     {
         public int WorkerId { get; set; }
+        public int ManagerId { get; set; }
         public int SectorId { get; set; }
         public int PositionId { get; set; }
         public int YearsOfService { get; set; }
