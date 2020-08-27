@@ -58,6 +58,13 @@ AS
 	where Username=@Username
 GO
 
+CREATE PROCEDURE Check_UniqueEmail
+@Email nvarchar(100)
+AS
+	select Email from tblCompanyMenager
+	where Email=@Email
+GO
+
 CREATE PROCEDURE Login_MasterUser
 @Username nvarchar(100), @Password nvarchar(max)
 AS
@@ -87,8 +94,18 @@ AS
 	select SCOPE_IDENTITY()
 GO
 
-
-
+CREATE  PROCEDURE Insert_Menager
+    @CompanyUserId int,  
+    @Email nvarchar(100),
+	@BackupPassword nvarchar(max),
+	@LevelOfResponsibilityId int,
+	@NumOfSuccessfulProjects int,
+	@NumberOfOffice int
+AS
+	insert into tblCompanyMenager(CompanyUserId, Email, BackupPassword, LevelOfResponsibilityId, NumOfSuccessfulProjects, NumberOfOffice) 
+	Values(@CompanyUserId, @Email, @BackupPassword, @LevelOfResponsibilityId, @NumOfSuccessfulProjects, @NumberOfOffice)
+	select SCOPE_IDENTITY()
+GO
 
 
 

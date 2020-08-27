@@ -57,11 +57,11 @@ namespace Nedeljni_I_Marija_Bozic.Views
                 isValidUsername &&
                 isValidPassword )
             {
-                btnSavemenager.IsEnabled = true;
+                btnSaveWorker.IsEnabled = true;
             }
             else
             {
-                btnSavemenager.IsEnabled = false;
+                btnSaveWorker.IsEnabled = false;
             }
         }
 
@@ -299,6 +299,16 @@ namespace Nedeljni_I_Marija_Bozic.Views
             register.WorkerRegistry = true;
             register.MenagerBtn = true;
             register.WorkerBtn = true;
+        }
+
+        private void btnSavemenager_Click(object sender, RoutedEventArgs e)
+        {
+            register.SaveMenagerExecute(txtPassword.Password, txtBackupPassword.Password);
+        }
+
+        private void btnSaveWorker_Click(object sender, RoutedEventArgs e)
+        {
+            register.SaveWorkerExecute(txtPassword.Password);
         }
     }
 }

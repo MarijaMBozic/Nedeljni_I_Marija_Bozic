@@ -414,7 +414,83 @@ namespace Nedeljni_I_Marija_Bozic.Service
             return user.UserId;
         }
 
-        public bool CheckUsernameClinicUser(string userName)
+        public int AddMenagerUser(Menager user)
+        {
+            using (SqlConnection conn = ConnectionHelper.GetNewConnection())
+            {
+                conn.Open();
+                try
+                {
+                    using (SqlCommand cmd = conn.CreateCommand())
+                    {
+                        cmd.CommandText = "Insert_Menager";
+                        cmd.CommandType = CommandType.StoredProcedure;
+                        cmd.Parameters.AddWithValue("@CompanyUserId", user.UserId);
+                        cmd.Parameters.AddWithValue("@Email", user.Email);
+                        cmd.Parameters.AddWithValue("@BackupPassword", HashPasswordHelper.HashPassword(user.BackupPassword));
+                        cmd.Parameters.AddWithValue("@LevelOfResponsibilityId", user.LevelOfResponsibility);
+                        cmd.Parameters.AddWithValue("@NumOfSuccessfulProjects", user.NumberOfOffice);
+                        cmd.Parameters.AddWithValue("@NumberOfOffice", user.NumberOfOffice);
+                        SqlDataReader reader = cmd.ExecuteReader();
+                        if (reader.Read())
+                        {
+                            user.ManagerId = int.Parse(reader.GetValue(0).ToString());
+                        }
+                    }
+                }
+                catch (Exception ex)
+                {
+                    System.Diagnostics.Debug.WriteLine("Exeption" + ex.Message.ToString());
+                    Logging.LoggAction("RegistrationMenager", "Error", ex.ToString());
+                    return 0;
+                }
+                finally
+                {
+                    conn.Close();
+                }
+            }
+            return user.ManagerId;
+        }
+
+        public int AddWorkerUser(Worker user)
+        {
+            using (SqlConnection conn = ConnectionHelper.GetNewConnection())
+            {
+                conn.Open();
+                try
+                {
+                    using (SqlCommand cmd = conn.CreateCommand())
+                    {
+                        //cmd.CommandText = "Insert_Menager";
+                        //cmd.CommandType = CommandType.StoredProcedure;
+                        //cmd.Parameters.AddWithValue("@CompanyUserId", user.UserId);
+                        //cmd.Parameters.AddWithValue("@Email", user.Email);
+                        //cmd.Parameters.AddWithValue("@BackupPassword", HashPasswordHelper.HashPassword(user.BackupPassword));
+                        //cmd.Parameters.AddWithValue("@LevelOfResponsibilityId", user.LevelOfResponsibility);
+                        //cmd.Parameters.AddWithValue("@NumOfSuccessfulProjects", user.NumberOfOffice);
+                        //cmd.Parameters.AddWithValue("@NumberOfOffice", user.NumberOfOffice);
+                        //SqlDataReader reader = cmd.ExecuteReader();
+                        //if (reader.Read())
+                        //{
+                        //    user.ManagerId = int.Parse(reader.GetValue(0).ToString());
+                        //}
+                    }
+                }
+                catch (Exception ex)
+                {
+                    System.Diagnostics.Debug.WriteLine("Exeption" + ex.Message.ToString());
+                    Logging.LoggAction("RegistrationMenager", "Error", ex.ToString());
+                    return 0;
+                }
+                finally
+                {
+                    conn.Close();
+                }
+            }
+            return user.ManagerId;
+        }
+
+        public bool CheckUsernameUser(string userName)
         {
             bool result=false;
             using (SqlConnection conn = ConnectionHelper.GetNewConnection())
@@ -470,6 +546,39 @@ namespace Nedeljni_I_Marija_Bozic.Service
                 catch (Exception ex)
                 {
                     System.Diagnostics.Debug.WriteLine("Exeption" + ex.Message.ToString());                    
+                    result = false;
+                }
+                finally
+                {
+                    conn.Close();
+                }
+            }
+            return result;
+        }
+                
+        public bool CheckUniqueEmail(string email)
+        {
+            bool result = false;
+            using (SqlConnection conn = ConnectionHelper.GetNewConnection())
+            {
+                conn.Open();
+                try
+                {
+                    using (SqlCommand cmd = conn.CreateCommand())
+                    {
+                        cmd.CommandText = "Check_UniqueEmail";
+                        cmd.CommandType = CommandType.StoredProcedure;
+                        cmd.Parameters.AddWithValue("@Email", email);
+                        SqlDataReader reader = cmd.ExecuteReader();
+                        if (reader.Read())
+                        {
+                            result = true;
+                        }
+                    }
+                }
+                catch (Exception ex)
+                {
+                    System.Diagnostics.Debug.WriteLine("Exeption" + ex.Message.ToString());
                     result = false;
                 }
                 finally

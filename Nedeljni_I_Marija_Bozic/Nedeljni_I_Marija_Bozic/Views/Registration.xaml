@@ -206,7 +206,7 @@
             </Grid.RowDefinitions>
             <Label Grid.Column="1" Grid.Row="3" Name="lblEmail" Content="Email:" Padding="0" HorizontalAlignment="Right"/>
             <Label Grid.Column="4" Grid.Row="3" Name="lblValidationEmail" Padding="0" Grid.ColumnSpan="7" Grid.RowSpan="3" HorizontalAlignment="Left"/>
-            <Label Grid.Column="1" Grid.Row="5" Name="lblBackupPassword" Content="Backup Password" Padding="0" HorizontalAlignment="Right"/>
+            <Label Grid.Column="1" Grid.Row="5" Name="lblBackupPassword" Content="Password hint" Padding="0" HorizontalAlignment="Right"/>
             <Label Grid.Column="4" Grid.Row="5" Name="lblValidationBackupPassword" Padding="0" Grid.ColumnSpan="5" Grid.RowSpan="5" HorizontalAlignment="Left"/>
             <Label Grid.Column="1" Grid.Row="7" Name="lblLevelOfResponsability" Content="Responsibility level:" Padding="0" HorizontalAlignment="Right"/>
             <Label Grid.Column="4" Grid.Row="7" Name="lblValidationLevelOfResponsability" Grid.ColumnSpan="7" Grid.RowSpan="5" Padding="0" HorizontalAlignment="Left"/>
@@ -214,7 +214,7 @@
             <Label Grid.Column="4" Grid.Row="9" Name="lblValidationNumberOfOfice" Grid.ColumnSpan="7" Grid.RowSpan="5" Padding="0" HorizontalAlignment="Left"/>
             <TextBox Grid.Column="3" Grid.Row="3" Name="txtEmail" Height="20" Width="100" 
                  Text="{Binding Menager.Email, UpdateSourceTrigger=PropertyChanged}"/>
-            <PasswordBox Grid.Column="3" Grid.Row="5" Name="txtBuckupPassword" Height="20" Width="100"                 
+            <PasswordBox Grid.Column="3" Grid.Row="5" Name="txtBackupPassword" Height="20" Width="100"                 
                      />
             <ComboBox Grid.Column="3" Grid.Row="7" Name="cmbResponsibilitiLevel" Height="20" Width="100" 
                   DisplayMemberPath="Name" Text="Choose" IsEditable="True"
@@ -225,14 +225,18 @@
                  Text="{Binding Menager.YearsOfService, UpdateSourceTrigger=PropertyChanged}"/>
         </Grid>
 
-        <Button Grid.Column="5" Grid.Row="21" Name="btnSavemenager" Content="Add Menager" IsEnabled="False" Height="20"                 
-                Width="80" HorizontalAlignment="Left" Command="{Binding Save, UpdateSourceTrigger=PropertyChanged}"
+        <Button Grid.Column="5" Grid.Row="21" Name="btnSavemenager" Content="Add Menager" IsEnabled="True" Height="20"                 
+                Width="80" HorizontalAlignment="Left"
                  Visibility="{Binding ManagerRegistry, Converter={StaticResource BoolToVisibilityConverter}}"
-                CommandParameter="{Binding ElementName=txtPassword}"/>
-        <Button Grid.Column="5" Grid.Row="21" Name="btnSaveWorker" Content="Add Worker" IsEnabled="False" Height="20"                 
-                Width="80" HorizontalAlignment="Left" Command="{Binding Save, UpdateSourceTrigger=PropertyChanged}"
+                Click="btnSavemenager_Click"
+                />
+        <Button Grid.Column="5" Grid.Row="21" Name="btnSaveWorker" Content="Add Worker" IsEnabled="True" Height="20"                 
+                Width="80" HorizontalAlignment="Left" 
+                Click="btnSaveWorker_Click"
                  Visibility="{Binding WorkerRegistry, Converter={StaticResource BoolToVisibilityConverter}}"
-                CommandParameter="{Binding ElementName=txtPassword}"/>
+                />
+
+
 
         <Button Grid.Column="9" Grid.Row="21" Name="btnQuit" Content="Quit" IsEnabled="True" Height="20" 
                 Width="70" HorizontalAlignment="Left" Click="btnQuit_Click"/>

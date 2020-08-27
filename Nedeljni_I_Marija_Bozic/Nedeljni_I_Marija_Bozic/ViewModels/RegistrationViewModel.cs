@@ -1,4 +1,5 @@
-﻿using Nedeljni_I_Marija_Bozic.Helpers;
+﻿using Nedeljni_I_Marija_Bozic.Command;
+using Nedeljni_I_Marija_Bozic.Helpers;
 using Nedeljni_I_Marija_Bozic.Models;
 using Nedeljni_I_Marija_Bozic.Service;
 using Nedeljni_I_Marija_Bozic.Views;
@@ -10,6 +11,8 @@ using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Windows;
+using System.Windows.Controls;
+using System.Windows.Input;
 
 namespace Nedeljni_I_Marija_Bozic.ViewModels
 {
@@ -257,6 +260,21 @@ namespace Nedeljni_I_Marija_Bozic.ViewModels
             }
         }
 
+        private Menager menager = new Menager();
+        public Menager Menager
+        {
+            get
+            {
+                return menager;
+            }
+            set
+            {
+                menager = value;
+                OnPropertyChanged("Menager");
+            }
+        }
+
+
         private ObservableCollection<LevelOfResponsibility> levelOfResponsibilityList;
         public ObservableCollection<LevelOfResponsibility> LevelOfResponsibilityList
         {
@@ -286,6 +304,90 @@ namespace Nedeljni_I_Marija_Bozic.ViewModels
         }
         #endregion
         #region Commands
+
+        public void SaveMenagerExecute(string parametar1, string parametar2)
+        {
+            User.Password = parametar1;
+            User.GenderId = selectedGender.GenderId;
+            User.MaritalStatusId = selectedMaritalStatus.MaritalStatusId;
+            User.RoleId =1;
+            try
+            {
+                if (User.UserId == 0)
+                {
+                    bool uniqueUserName = service.CheckUsernameUser(User.Username);
+                    bool uniqueEmail = service.CheckUniqueEmail(Menager.Email);
+                    if (!uniqueUserName && !uniqueEmail)
+                    {
+                        int userId = service.AddCompanyUser(User);
+                        if (userId != 0)
+                        {
+                            Menager.UserId = userId;
+                            Menager.NumOfSuccessfulProjects = 0;
+                            Menager.LevelOfResponsibility = selectedLevelOfResponsibility.LevelOfResponsibilityId;
+                            Menager.BackupPassword = parametar2 + "WPF";
+
+                            if (service.AddMenagerUser(Menager) != 0)
+                            {
+                                MessageBox.Show("You have successfully registrate!");
+                                Logging.LoggAction("RegistrationMenager", "Info", "Succesfull registrate new menager");
+
+                                MainWindow mainView = new MainWindow();
+                                mainView.Show();
+                                registrationView.Close();
+                            }
+                        }
+                    }
+                }               
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.ToString());
+                Logging.LoggAction("RegistrationMenager", "Error", ex.ToString());
+            }
+        }
+
+        public void SaveWorkerExecute(string parametar)
+        {
+            User.Password = parametar;
+            User.GenderId = selectedGender.GenderId;
+            User.MaritalStatusId = selectedMaritalStatus.MaritalStatusId;
+            User.RoleId = 3;
+            try
+            {
+                if (User.UserId == 0)
+                {
+                    bool uniqueUserName = service.CheckUsernameUser(User.Username);
+                    if (!uniqueUserName)
+                    {
+                        int userId = service.AddCompanyUser(User);
+                        if (userId != 0)
+                        {
+                            Worker.UserId = userId;
+                            Worker.SectorId = selectedSector.SectorId;
+                            Worker.PositionId = selectedPosition.PositionId;
+                            Worker.QualificationsId = selectedQualification.QualificationsId;
+                            if (service.AddWorkerUser(Worker) != 0)
+                            {
+                                MessageBox.Show("You have successfully registrate!");
+                                Logging.LoggAction("RegistrationWorker", "Info", "Succesfull registrate new worker");
+
+                                MainWindow mainView = new MainWindow();
+                                mainView.Show();
+                                registrationView.Close();
+                            }
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.ToString());
+                Logging.LoggAction("RegistrationWorker", "Error", ex.ToString());
+            }
+        }
+
+
         public bool CheckAccessCode(string inputText)
         {
             try
