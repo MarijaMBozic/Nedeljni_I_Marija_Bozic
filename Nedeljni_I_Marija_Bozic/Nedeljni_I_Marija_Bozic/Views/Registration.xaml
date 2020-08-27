@@ -9,7 +9,8 @@
         Title="Registration" Height="450" Width="800">
     <Window.Resources>
         <ResourceDictionary>
-            <converters:BoolToVisibilityConverter x:Key="BoolToVisibilityConverter" />           
+            <converters:BoolToVisibilityConverter x:Key="BoolToVisibilityConverter" />
+            <converters:BoolToVisibilityInverseConverter x:Key="BoolToVisibilityInverseConverter" />
         </ResourceDictionary>
     </Window.Resources>
     <Grid >
@@ -72,8 +73,6 @@
         <Label Grid.Column="4" Grid.Row="15" Name="lblValidationUsername" Grid.ColumnSpan="7" Grid.RowSpan="5" Padding="0" HorizontalAlignment="Left"/>
         <Label Grid.Column="1" Grid.Row="17" Name="lblPassword" Content="Password:" Padding="0" HorizontalAlignment="Right"/>
         <Label Grid.Column="4" Grid.Row="17" Name="lblValidationPassword" Grid.ColumnSpan="7" Grid.RowSpan="5" Padding="0" HorizontalAlignment="Left"/>
-        <Label Grid.Column="1" Grid.Row="19" Name="lblIsManager" Content="Manager" Padding="0" Margin="30,0,0,0" HorizontalAlignment="Left"/>
-        <Label Grid.Column="3" Grid.Row="19" Name="lblIsWorker" Content="Worker"  Padding="0" Margin="40,0,0,0" HorizontalAlignment="Left"/>
         <TextBox Grid.Column="3" Grid.Row="3" Name="txtFirstName" Height="20" Width="100" 
                  TextChanged="txtFirstName_TextChanged"
                  Text="{Binding User.FirstName, UpdateSourceTrigger=PropertyChanged}"/>
@@ -103,9 +102,8 @@
                  Text="{Binding User.Username, UpdateSourceTrigger=PropertyChanged}"/>
         <PasswordBox Grid.Column="3" Grid.Row="17" Name="txtPassword" Height="20" Width="100"                 
                      PasswordChanged="txtPassword_PasswordChanged"/>
-        <RadioButton  Grid.Column="1" Grid.Row="19"  IsChecked="{Binding ManagerRegistry}" HorizontalAlignment="Right" />
-        <RadioButton Grid.Column="3" Grid.Row="19" IsChecked="{Binding WorkerRegistry}"  HorizontalAlignment="Right" />
-
+        <Button x:Name="btnMenager" Content="Menager" Visibility="{Binding MenagerBtn, Converter={StaticResource BoolToVisibilityInverseConverter}}"   Grid.Column="1" Grid.Row="19" Width="70" Height="20" Click="btnMenager_Click" HorizontalAlignment="Right" />
+        <Button x:Name="btnWorker" Content="Worker" Visibility="{Binding WorkerBtn, Converter={StaticResource BoolToVisibilityInverseConverter}}" Grid.Column="3" Grid.Row="19" Width="70" Height="20" Click="btnWorker_Click"  HorizontalAlignment="Right" />
         <Grid Grid.Column="9" Grid.Row="1" Grid.RowSpan="15" Grid.ColumnSpan="9"
                Visibility="{Binding WorkerRegistry, Converter={StaticResource BoolToVisibilityConverter}}">
             <Grid.ColumnDefinitions>
@@ -227,10 +225,15 @@
                  Text="{Binding Menager.YearsOfService, UpdateSourceTrigger=PropertyChanged}"/>
         </Grid>
 
-        <Button Grid.Column="5" Grid.Row="21" Name="btnSave" Content="Add" IsEnabled="False" Height="20"                 
-                Width="70" HorizontalAlignment="Left" Command="{Binding Save, UpdateSourceTrigger=PropertyChanged}"
+        <Button Grid.Column="5" Grid.Row="21" Name="btnSavemenager" Content="Add Menager" IsEnabled="False" Height="20"                 
+                Width="80" HorizontalAlignment="Left" Command="{Binding Save, UpdateSourceTrigger=PropertyChanged}"
+                 Visibility="{Binding ManagerRegistry, Converter={StaticResource BoolToVisibilityConverter}}"
                 CommandParameter="{Binding ElementName=txtPassword}"/>
-       
+        <Button Grid.Column="5" Grid.Row="21" Name="btnSaveWorker" Content="Add Worker" IsEnabled="False" Height="20"                 
+                Width="80" HorizontalAlignment="Left" Command="{Binding Save, UpdateSourceTrigger=PropertyChanged}"
+                 Visibility="{Binding WorkerRegistry, Converter={StaticResource BoolToVisibilityConverter}}"
+                CommandParameter="{Binding ElementName=txtPassword}"/>
+
         <Button Grid.Column="9" Grid.Row="21" Name="btnQuit" Content="Quit" IsEnabled="True" Height="20" 
                 Width="70" HorizontalAlignment="Left" Click="btnQuit_Click"/>
     </Grid>

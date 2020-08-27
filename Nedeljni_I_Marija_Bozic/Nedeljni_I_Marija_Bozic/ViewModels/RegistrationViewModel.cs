@@ -1,4 +1,5 @@
-﻿using Nedeljni_I_Marija_Bozic.Models;
+﻿using Nedeljni_I_Marija_Bozic.Helpers;
+using Nedeljni_I_Marija_Bozic.Models;
 using Nedeljni_I_Marija_Bozic.Service;
 using Nedeljni_I_Marija_Bozic.Views;
 using System;
@@ -6,7 +7,9 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
+using System.Windows;
 
 namespace Nedeljni_I_Marija_Bozic.ViewModels
 {
@@ -14,6 +17,8 @@ namespace Nedeljni_I_Marija_Bozic.ViewModels
     {
         Registration registrationView;
         ServiceCode service = new ServiceCode();
+        public int count =3;
+        
         #region Constructor
         public RegistrationViewModel(Registration registrationViewOpen)
         {
@@ -23,6 +28,7 @@ namespace Nedeljni_I_Marija_Bozic.ViewModels
             SectorList = new ObservableCollection<Sector>(service.GettAllSectors());
             PositionList = new ObservableCollection<Position>(service.GettAllPositions());
             QualificationList = new ObservableCollection<Qualifications>(service.GettAllQualificationLevels());
+            LevelOfResponsibilityList = new ObservableCollection<LevelOfResponsibility>(service.GettAllLevelsOfResponsibility());
         }
         #endregion
         #region Property
@@ -38,6 +44,34 @@ namespace Nedeljni_I_Marija_Bozic.ViewModels
             {
                 workerRegistry = value;
                 OnPropertyChanged("WorkerRegistry");
+            }
+        }
+
+        private bool workerBtn;
+        public bool WorkerBtn
+        {
+            get
+            {
+                return workerBtn;
+            }
+            set
+            {
+                workerBtn = value;
+                OnPropertyChanged("WorkerBtn");
+            }
+        }
+
+        private bool menagerBtn;
+        public bool MenagerBtn
+        {
+            get
+            {
+                return menagerBtn;
+            }
+            set
+            {
+                menagerBtn = value;
+                OnPropertyChanged("MenagerBtn");
             }
         }
 
@@ -221,6 +255,64 @@ namespace Nedeljni_I_Marija_Bozic.ViewModels
                 worker = value;
                 OnPropertyChanged("Worker");
             }
+        }
+
+        private ObservableCollection<LevelOfResponsibility> levelOfResponsibilityList;
+        public ObservableCollection<LevelOfResponsibility> LevelOfResponsibilityList
+        {
+            get
+            {
+                return levelOfResponsibilityList;
+            }
+            set
+            {
+                levelOfResponsibilityList = value;
+                OnPropertyChanged("LevelOfResponsibilityList");
+            }
+        }
+
+        private LevelOfResponsibility selectedLevelOfResponsibility;
+        public LevelOfResponsibility SelectedLevelOfResponsibility
+        {
+            get
+            {
+                return selectedLevelOfResponsibility;
+            }
+            set
+            {
+                selectedLevelOfResponsibility = value;
+                OnPropertyChanged("SelectedLevelOfResponsibility");
+            }
+        }
+        #endregion
+        #region Commands
+        public bool CheckAccessCode(string inputText)
+        {
+            try
+            {
+                if(count>0)
+                {
+                    count--;
+                    if (ValidateRandomAccessCode.IsVaslidAccesCode(inputText))
+                    {
+                        MessageBox.Show("The code is valid.You can continue with the registration of the manager's account");
+                        ManagerRegistry = true;
+                        return true;
+                    }
+                    else
+                    { 
+                        if(count>0)
+                        {
+                            MessageBox.Show(string.Format("The code is not valid.You can try {0} more times", count));
+                        }                        
+                    }                 
+                }                    
+            }
+            catch
+            {
+                return false;
+            }
+            return false;
         }
         #endregion
     }

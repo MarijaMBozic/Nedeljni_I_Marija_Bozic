@@ -298,7 +298,46 @@ namespace Nedeljni_I_Marija_Bozic.Service
                 }
             }
         }
-        
+        public List<LevelOfResponsibility> GettAllLevelsOfResponsibility()
+        {
+            List<LevelOfResponsibility> responsibilityList = new List<LevelOfResponsibility>();
+            using (SqlConnection conn = ConnectionHelper.GetNewConnection())
+            {
+                conn.Open();
+                try
+                {
+                    using (SqlCommand cmd = conn.CreateCommand())
+                    {
+                        cmd.CommandText = "Get_AllLevelOfResponsibility";
+                        cmd.CommandType = CommandType.StoredProcedure;
+                        SqlDataAdapter adapter = new SqlDataAdapter();
+                        adapter.SelectCommand = cmd;
+                        DataTable dt = new DataTable();
+                        adapter.Fill(dt);
+                        foreach (DataRow row in dt.Rows)
+                        {
+                            LevelOfResponsibility r = new LevelOfResponsibility
+                            {
+                                LevelOfResponsibilityId = int.Parse(row[0].ToString()),
+                                Name = row[1].ToString()                               
+                            };
+                            responsibilityList.Add(r);
+                        }
+                        return responsibilityList;
+                    }
+                }
+                catch (Exception ex)
+                {
+                    System.Diagnostics.Debug.WriteLine("Exeption" + ex.Message.ToString());
+                    return null;
+                }
+                finally
+                {
+                    conn.Close();
+                }
+            }
+        }
+
         public int AddCompanyUser(User user)
         {
             using (SqlConnection conn = ConnectionHelper.GetNewConnection())

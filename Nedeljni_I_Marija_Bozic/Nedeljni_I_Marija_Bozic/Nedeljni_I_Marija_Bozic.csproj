@@ -75,6 +75,7 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="Converters\BoolToVisibilityConverter.cs" />
+    <Compile Include="Converters\BoolToVisibilityInverseConverter.cs" />
     <Compile Include="Helpers\Logging.cs" />
     <Compile Include="Helpers\HashPasswordHelper.cs" />
     <Compile Include="Helpers\RandomString.cs" />
@@ -101,7 +102,9 @@
     <Compile Include="Views\AddNewAdmin.xaml.cs">
       <DependentUpon>AddNewAdmin.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\CheckRandomAccessCodeView.cs" />
+    <Compile Include="Views\CheckRandomAccessCodeView.xaml.cs">
+      <DependentUpon>CheckRandomAccessCodeView.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\MasterAdminView.xaml.cs">
       <DependentUpon>MasterAdminView.xaml</DependentUpon>
     </Compile>
@@ -123,6 +126,10 @@
       <SubType>Code</SubType>
     </Compile>
     <Page Include="Views\AddNewAdmin.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\CheckRandomAccessCodeView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

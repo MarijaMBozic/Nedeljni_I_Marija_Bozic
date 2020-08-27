@@ -29,10 +29,14 @@ namespace Nedeljni_I_Marija_Bozic.Views
         private bool isValidPassword;
         private bool isValidMaritalStatus;
         private bool isValidJMBG;
+
+        RegistrationViewModel register;
+
         public Registration()
         {
             InitializeComponent();
-            this.DataContext = new RegistrationViewModel(this);
+            register = new RegistrationViewModel(this);
+            this.DataContext = register;
         }
 
         private void btnQuit_Click(object sender, RoutedEventArgs e)
@@ -53,11 +57,11 @@ namespace Nedeljni_I_Marija_Bozic.Views
                 isValidUsername &&
                 isValidPassword )
             {
-                btnSave.IsEnabled = true;
+                btnSavemenager.IsEnabled = true;
             }
             else
             {
-                btnSave.IsEnabled = false;
+                btnSavemenager.IsEnabled = false;
             }
         }
 
@@ -282,6 +286,19 @@ namespace Nedeljni_I_Marija_Bozic.Views
                 isValidPassword = true;
             }
             IsRegistrationUserEnabled();
-        }      
+        }
+
+        private void btnMenager_Click(object sender, RoutedEventArgs e)
+        {
+            CheckRandomAccessCodeView view = new CheckRandomAccessCodeView(register);
+            view.Show();
+        }
+
+        private void btnWorker_Click(object sender, RoutedEventArgs e)
+        {
+            register.WorkerRegistry = true;
+            register.MenagerBtn = true;
+            register.WorkerBtn = true;
+        }
     }
 }
