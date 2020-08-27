@@ -1,4 +1,5 @@
 ﻿using Nedeljni_I_Marija_Bozic.Command;
+using Nedeljni_I_Marija_Bozic.Helpers;
 using Nedeljni_I_Marija_Bozic.Service;
 using Nedeljni_I_Marija_Bozic.Views;
 using System;
@@ -20,8 +21,8 @@ namespace Nedeljni_I_Marija_Bozic.ViewModels
         #region Constructor
         public MainWindowViewModel(MainWindow mainOpen)
         {
-            this.main = mainOpen;
-
+           this.main = mainOpen;
+           RandomString.RandomStringManager();
         }
         #endregion
         #region Properties

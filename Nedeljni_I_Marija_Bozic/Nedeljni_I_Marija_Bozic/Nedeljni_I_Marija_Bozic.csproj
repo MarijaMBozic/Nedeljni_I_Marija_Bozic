@@ -74,8 +74,11 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Converters\BoolToVisibilityConverter.cs" />
     <Compile Include="Helpers\Logging.cs" />
     <Compile Include="Helpers\HashPasswordHelper.cs" />
+    <Compile Include="Helpers\RandomString.cs" />
+    <Compile Include="Helpers\ValidateRandomAccessCode.cs" />
     <Compile Include="Models\Administrator.cs" />
     <Compile Include="Models\AdministratorType.cs" />
     <Compile Include="Models\RealizationStatus.cs" />
@@ -98,6 +101,7 @@
     <Compile Include="Views\AddNewAdmin.xaml.cs">
       <DependentUpon>AddNewAdmin.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Views\CheckRandomAccessCodeView.cs" />
     <Compile Include="Views\MasterAdminView.xaml.cs">
       <DependentUpon>MasterAdminView.xaml</DependentUpon>
     </Compile>
@@ -158,9 +162,16 @@
   <ItemGroup>
     <None Include="App.config" />
   </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
-    <Folder Include="LoggedInfo\" />
-    <Folder Include="SQL_designe\" />
+    <Resource Include="ManagerAccess\ManagerAccess.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="LoggedInfo\Logging.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="SQL_designe\Create_Table.sql" />
+    <Content Include="SQL_designe\StoreProcedures.sql" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

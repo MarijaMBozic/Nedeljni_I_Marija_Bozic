@@ -4,8 +4,14 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Nedeljni_I_Marija_Bozic.Views"
+        xmlns:converters="clr-namespace:Nedeljni_I_Marija_Bozic.Converters"
         mc:Ignorable="d"
         Title="Registration" Height="450" Width="800">
+    <Window.Resources>
+        <ResourceDictionary>
+            <converters:BoolToVisibilityConverter x:Key="BoolToVisibilityConverter" />           
+        </ResourceDictionary>
+    </Window.Resources>
     <Grid >
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="20"/>
@@ -97,11 +103,134 @@
                  Text="{Binding User.Username, UpdateSourceTrigger=PropertyChanged}"/>
         <PasswordBox Grid.Column="3" Grid.Row="17" Name="txtPassword" Height="20" Width="100"                 
                      PasswordChanged="txtPassword_PasswordChanged"/>
+        <RadioButton  Grid.Column="1" Grid.Row="19"  IsChecked="{Binding ManagerRegistry}" HorizontalAlignment="Right" />
+        <RadioButton Grid.Column="3" Grid.Row="19" IsChecked="{Binding WorkerRegistry}"  HorizontalAlignment="Right" />
+
+        <Grid Grid.Column="9" Grid.Row="1" Grid.RowSpan="15" Grid.ColumnSpan="9"
+               Visibility="{Binding WorkerRegistry, Converter={StaticResource BoolToVisibilityConverter}}">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="20"/>
+                <ColumnDefinition Width="100"/>
+                <ColumnDefinition Width="6"/>
+                <ColumnDefinition Width="120"/>
+                <ColumnDefinition Width="6"/>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="6"/>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="6"/>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="6"/>
+                <ColumnDefinition Width="*"/>                
+                <ColumnDefinition Width="50"/>
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="20"/>
+                <RowDefinition Height="30"/>
+                <RowDefinition Height="6"/>
+                <RowDefinition Height="30"/>
+                <RowDefinition Height="6"/>
+                <RowDefinition Height="30"/>
+                <RowDefinition Height="6"/>
+                <RowDefinition Height="30"/>
+                <RowDefinition Height="6"/>
+                <RowDefinition Height="30"/>
+                <RowDefinition Height="6"/>
+                <RowDefinition Height="30"/>
+                <RowDefinition Height="6"/>
+                <RowDefinition Height="30"/>
+                <RowDefinition Height="6"/>
+                <RowDefinition Height="30"/>
+                <RowDefinition Height="6"/>
+                <RowDefinition Height="30"/>    
+            </Grid.RowDefinitions>           
+            <Label Grid.Column="1" Grid.Row="3" Name="lblSector" Content="Sector:" Padding="0" HorizontalAlignment="Right"/>
+            <Label Grid.Column="4" Grid.Row="3" Name="lblValidationSector" Padding="0" Grid.ColumnSpan="7" Grid.RowSpan="3" HorizontalAlignment="Left"/>
+            <Label Grid.Column="1" Grid.Row="5" Name="lblPosition" Content="Position" Padding="0" HorizontalAlignment="Right"/>
+            <Label Grid.Column="4" Grid.Row="5" Name="lblValidationPosition" Padding="0" Grid.ColumnSpan="5" Grid.RowSpan="5" HorizontalAlignment="Left"/>
+            <Label Grid.Column="1" Grid.Row="7" Name="lblYearsOfService" Content="Years of service:" Padding="0" HorizontalAlignment="Right"/>
+            <Label Grid.Column="4" Grid.Row="7" Name="lblValidationYearsOfService" Grid.ColumnSpan="7" Grid.RowSpan="5" Padding="0" HorizontalAlignment="Left"/>
+            <Label Grid.Column="1" Grid.Row="9" Name="lblQualification" Content="Qualification:" Padding="0" HorizontalAlignment="Right"/>
+            <Label Grid.Column="4" Grid.Row="9" Name="lblValidationQualification" Grid.ColumnSpan="7" Grid.RowSpan="5" Padding="0" HorizontalAlignment="Left"/>
+            <ComboBox Grid.Column="3" Grid.Row="3" Name="cmbSector" Height="20" Width="100" 
+                  DisplayMemberPath="Name" Text="Sector" IsEditable="True"
+                  ItemsSource="{Binding SectorList, UpdateSourceTrigger=PropertyChanged}"                 
+                  SelectedItem="{Binding SelectedSector, UpdateSourceTrigger=PropertyChanged}"                
+                  />
+            <ComboBox Grid.Column="3" Grid.Row="5" Name="cmbPosition" Height="20" Width="100" 
+                  DisplayMemberPath="Name" Text="Position" IsEditable="True"
+                  ItemsSource="{Binding PositionList, UpdateSourceTrigger=PropertyChanged}"                 
+                  SelectedItem="{Binding SelectedPosition, UpdateSourceTrigger=PropertyChanged}"                
+                  />
+            <TextBox Grid.Column="3" Grid.Row="7" Name="txtYearsOfexpirienc" Height="20" Width="100" 
+                 Text="{Binding Worker.YearsOfService, UpdateSourceTrigger=PropertyChanged}"/>
+            <ComboBox Grid.Column="3" Grid.Row="9" Name="cmbQualification" Height="20" Width="100" 
+                  DisplayMemberPath="Name" Text="Level" IsEditable="True"
+                  ItemsSource="{Binding QualificationList, UpdateSourceTrigger=PropertyChanged}"                 
+                  SelectedItem="{Binding SelectedQualification, UpdateSourceTrigger=PropertyChanged}"                
+                  />
+        </Grid>
+        <Grid Grid.Column="9" Grid.Row="1" Grid.RowSpan="15" Grid.ColumnSpan="9"
+               Visibility="{Binding ManagerRegistry, Converter={StaticResource BoolToVisibilityConverter}}">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="20"/>
+                <ColumnDefinition Width="100"/>
+                <ColumnDefinition Width="6"/>
+                <ColumnDefinition Width="120"/>
+                <ColumnDefinition Width="6"/>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="6"/>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="6"/>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="6"/>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="50"/>
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="20"/>
+                <RowDefinition Height="30"/>
+                <RowDefinition Height="6"/>
+                <RowDefinition Height="30"/>
+                <RowDefinition Height="6"/>
+                <RowDefinition Height="30"/>
+                <RowDefinition Height="6"/>
+                <RowDefinition Height="30"/>
+                <RowDefinition Height="6"/>
+                <RowDefinition Height="30"/>
+                <RowDefinition Height="6"/>
+                <RowDefinition Height="30"/>
+                <RowDefinition Height="6"/>
+                <RowDefinition Height="30"/>
+                <RowDefinition Height="6"/>
+                <RowDefinition Height="30"/>
+                <RowDefinition Height="6"/>
+                <RowDefinition Height="30"/>
+            </Grid.RowDefinitions>
+            <Label Grid.Column="1" Grid.Row="3" Name="lblEmail" Content="Email:" Padding="0" HorizontalAlignment="Right"/>
+            <Label Grid.Column="4" Grid.Row="3" Name="lblValidationEmail" Padding="0" Grid.ColumnSpan="7" Grid.RowSpan="3" HorizontalAlignment="Left"/>
+            <Label Grid.Column="1" Grid.Row="5" Name="lblBackupPassword" Content="Backup Password" Padding="0" HorizontalAlignment="Right"/>
+            <Label Grid.Column="4" Grid.Row="5" Name="lblValidationBackupPassword" Padding="0" Grid.ColumnSpan="5" Grid.RowSpan="5" HorizontalAlignment="Left"/>
+            <Label Grid.Column="1" Grid.Row="7" Name="lblLevelOfResponsability" Content="Responsibility level:" Padding="0" HorizontalAlignment="Right"/>
+            <Label Grid.Column="4" Grid.Row="7" Name="lblValidationLevelOfResponsability" Grid.ColumnSpan="7" Grid.RowSpan="5" Padding="0" HorizontalAlignment="Left"/>
+            <Label Grid.Column="1" Grid.Row="9" Name="lblNumberOfOfice" Content="Number of office:" Padding="0" HorizontalAlignment="Right"/>
+            <Label Grid.Column="4" Grid.Row="9" Name="lblValidationNumberOfOfice" Grid.ColumnSpan="7" Grid.RowSpan="5" Padding="0" HorizontalAlignment="Left"/>
+            <TextBox Grid.Column="3" Grid.Row="3" Name="txtEmail" Height="20" Width="100" 
+                 Text="{Binding Menager.Email, UpdateSourceTrigger=PropertyChanged}"/>
+            <PasswordBox Grid.Column="3" Grid.Row="5" Name="txtBuckupPassword" Height="20" Width="100"                 
+                     />
+            <ComboBox Grid.Column="3" Grid.Row="7" Name="cmbResponsibilitiLevel" Height="20" Width="100" 
+                  DisplayMemberPath="Name" Text="Choose" IsEditable="True"
+                  ItemsSource="{Binding LevelOfResponsibilityList, UpdateSourceTrigger=PropertyChanged}"                 
+                  SelectedItem="{Binding SelectedLevelOfResponsibility, UpdateSourceTrigger=PropertyChanged}"                
+                  />
+            <TextBox Grid.Column="3" Grid.Row="9" Name="txtNumberOfOffice" Height="20" Width="100" 
+                 Text="{Binding Menager.YearsOfService, UpdateSourceTrigger=PropertyChanged}"/>
+        </Grid>
+
         <Button Grid.Column="5" Grid.Row="21" Name="btnSave" Content="Add" IsEnabled="False" Height="20"                 
                 Width="70" HorizontalAlignment="Left" Command="{Binding Save, UpdateSourceTrigger=PropertyChanged}"
                 CommandParameter="{Binding ElementName=txtPassword}"/>
-        <RadioButton Grid.Column="1" Grid.Row="19" HorizontalAlignment="Right" />
-        <RadioButton Grid.Column="3" Grid.Row="19" HorizontalAlignment="Right" />
+       
         <Button Grid.Column="9" Grid.Row="21" Name="btnQuit" Content="Quit" IsEnabled="True" Height="20" 
                 Width="70" HorizontalAlignment="Left" Click="btnQuit_Click"/>
     </Grid>

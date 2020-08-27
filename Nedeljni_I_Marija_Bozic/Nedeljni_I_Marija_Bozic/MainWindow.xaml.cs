@@ -30,6 +30,7 @@ namespace Nedeljni_I_Marija_Bozic
         {
             InitializeComponent();
             this.DataContext = new MainWindowViewModel(this);
+
         }
 
         private void btnRegistration_Click(object sender, RoutedEventArgs e)

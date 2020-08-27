@@ -18,6 +18,7 @@ drop table if exists tblQualifications
 drop table if exists tblMaritalStatus
 drop table if exists tblRole
 drop table if exists tblGender
+drop table if exists tblMasterAcount
 
 create table tblGender (
    GenderId       int            identity (1,1) primary key,   
@@ -193,6 +194,16 @@ insert into tblRealizationStatus(Name)
 values('0'),
 	  ('1'),
       ('2')
+
+insert into tblSector(Name)
+values('Sales'),
+	  ('Logistic'),
+      ('HR')
+
+insert into tblPosition(Name)
+values('Advisor'),
+	  ('Administrator'),
+      ('Supervisor')
 
 insert into tblMasterAcount(Username, Password)
 values('WPFMaster', '4fvikKVCI/UlrU/Dio8//wU5BNg=')

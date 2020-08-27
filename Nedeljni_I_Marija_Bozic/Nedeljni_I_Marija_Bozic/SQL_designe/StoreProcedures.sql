@@ -1,4 +1,3 @@
-USE Nedeljni_I_Bozic;
 
 CREATE PROCEDURE Get_AllGender
 AS

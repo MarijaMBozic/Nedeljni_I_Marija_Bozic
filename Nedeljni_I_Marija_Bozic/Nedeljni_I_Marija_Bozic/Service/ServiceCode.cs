@@ -179,7 +179,126 @@ namespace Nedeljni_I_Marija_Bozic.Service
                 }
             }
         }
-
+        public List<Qualifications> GettAllQualificationLevels()
+        {
+            List<Qualifications> qualificationLevelList = new List<Qualifications>();
+            using (SqlConnection conn = ConnectionHelper.GetNewConnection())
+            {
+                conn.Open();
+                try
+                {
+                    using (SqlCommand cmd = conn.CreateCommand())
+                    {
+                        cmd.CommandText = "Get_AllQualifications";
+                        cmd.CommandType = CommandType.StoredProcedure;
+                        SqlDataAdapter adapter = new SqlDataAdapter();
+                        adapter.SelectCommand = cmd;
+                        DataTable dt = new DataTable();
+                        adapter.Fill(dt);
+                        foreach (DataRow row in dt.Rows)
+                        {
+                            Qualifications r = new Qualifications
+                            {
+                                QualificationsId = int.Parse(row[0].ToString()),
+                                Name = row[1].ToString(),
+                            };
+                            qualificationLevelList.Add(r);
+                        }
+                        return qualificationLevelList;
+                    }
+                }
+                catch (Exception ex)
+                {
+                    System.Diagnostics.Debug.WriteLine("Exeption" + ex.Message.ToString());
+                    return null;
+                }
+                finally
+                {
+                    conn.Close();
+                }
+            }
+        }
+        public List<Position> GettAllPositions()
+        {
+            List<Position> positionList = new List<Position>();
+            using (SqlConnection conn = ConnectionHelper.GetNewConnection())
+            {
+                conn.Open();
+                try
+                {
+                    using (SqlCommand cmd = conn.CreateCommand())
+                    {
+                        cmd.CommandText = "Get_AllPositions";
+                        cmd.CommandType = CommandType.StoredProcedure;
+                        SqlDataAdapter adapter = new SqlDataAdapter();
+                        adapter.SelectCommand = cmd;
+                        DataTable dt = new DataTable();
+                        adapter.Fill(dt);
+                        foreach (DataRow row in dt.Rows)
+                        {
+                            Position r = new Position
+                            {
+                                PositionId = int.Parse(row[0].ToString()),
+                                Name = row[1].ToString(),
+                                Description = row[2].ToString()
+                            };
+                            positionList.Add(r);
+                        }
+                        return positionList;
+                    }
+                }
+                catch (Exception ex)
+                {
+                    System.Diagnostics.Debug.WriteLine("Exeption" + ex.Message.ToString());
+                    return null;
+                }
+                finally
+                {
+                    conn.Close();
+                }
+            }
+        }
+        public List<Sector> GettAllSectors()
+        {
+            List<Sector> sectorList = new List<Sector>();
+            using (SqlConnection conn = ConnectionHelper.GetNewConnection())
+            {
+                conn.Open();
+                try
+                {
+                    using (SqlCommand cmd = conn.CreateCommand())
+                    {
+                        cmd.CommandText = "Get_AllSectors";
+                        cmd.CommandType = CommandType.StoredProcedure;
+                        SqlDataAdapter adapter = new SqlDataAdapter();
+                        adapter.SelectCommand = cmd;
+                        DataTable dt = new DataTable();
+                        adapter.Fill(dt);
+                        foreach (DataRow row in dt.Rows)
+                        {
+                            Sector r = new Sector
+                            {
+                                SectorId = int.Parse(row[0].ToString()),
+                                Name = row[1].ToString(),
+                                Description = row[2].ToString()
+                            };
+                            sectorList.Add(r);
+                        }
+                        return sectorList;
+                    }
+                }
+                catch (Exception ex)
+                {
+                    System.Diagnostics.Debug.WriteLine("Exeption" + ex.Message.ToString());
+                    return null;
+                }
+                finally
+                {
+                    conn.Close();
+                }
+            }
+        }
+        
         public int AddCompanyUser(User user)
         {
             using (SqlConnection conn = ConnectionHelper.GetNewConnection())
