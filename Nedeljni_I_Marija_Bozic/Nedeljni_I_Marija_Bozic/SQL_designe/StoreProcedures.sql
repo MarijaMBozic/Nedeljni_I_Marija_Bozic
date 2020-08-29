@@ -58,6 +58,13 @@ AS
 	where Username=@Username
 GO
 
+CREATE PROCEDURE Check_UniqueJmbg
+@JMBG nvarchar(100)
+AS
+	select JMBG from tblCompanyUser
+	where JMBG=@JMBG
+GO
+
 CREATE PROCEDURE Check_UniqueEmail
 @Email nvarchar(100)
 AS
@@ -94,17 +101,54 @@ AS
 	select SCOPE_IDENTITY()
 GO
 
-CREATE  PROCEDURE Insert_Menager
+CREATE or alter  PROCEDURE Insert_Menager
     @CompanyUserId int,  
     @Email nvarchar(100),
 	@BackupPassword nvarchar(max),
-	@LevelOfResponsibilityId int,
 	@NumOfSuccessfulProjects int,
 	@NumberOfOffice int
 AS
-	insert into tblCompanyMenager(CompanyUserId, Email, BackupPassword, LevelOfResponsibilityId, NumOfSuccessfulProjects, NumberOfOffice) 
-	Values(@CompanyUserId, @Email, @BackupPassword, @LevelOfResponsibilityId, @NumOfSuccessfulProjects, @NumberOfOffice)
+	insert into tblCompanyMenager(CompanyUserId, Email, BackupPassword, NumOfSuccessfulProjects, NumberOfOffice) 
+	Values(@CompanyUserId, @Email, @BackupPassword,  @NumOfSuccessfulProjects, @NumberOfOffice)
 	select SCOPE_IDENTITY()
+GO
+
+CREATE or alter  PROCEDURE Insert_Worker
+    @CompanyUserId int,  
+    @ManagerId int,
+	@SectorId int  ,
+	@PositionId int ,
+	@YearsOfService int,
+	@QualificationsId int
+
+AS
+	if @PositionId=0
+	begin
+	insert into tblCompanyWorker(CompanyUserId, ManagerId, SectorId, YearsOfService, QualificationsId) 
+	Values(@CompanyUserId, @ManagerId, @SectorId,  @YearsOfService, @QualificationsId )
+	select SCOPE_IDENTITY()
+	end
+	if @PositionId!=0
+	begin
+	insert into tblCompanyWorker(CompanyUserId, ManagerId, SectorId, PositionId, YearsOfService, QualificationsId) 
+	Values(@CompanyUserId, @ManagerId, @SectorId,  @PositionId, @YearsOfService, @QualificationsId )
+	select SCOPE_IDENTITY()
+	end
+GO
+
+
+
+ 
+
+
+CREATE or alter PROCEDURE Get_AllMenagers
+AS
+	select tblCompanyUser.CompanyUserId,FirstName, LastName, tblGender.Name,
+	 tblCompanyMenager.Email,
+	 tblCompanyMenager.NumOfSuccessfulProjects, tblCompanyMenager.NumberOfOffice 
+	 from tblCompanyUser
+	left join tblCompanyMenager on   tblCompanyUser.CompanyUserId=tblCompanyMenager.CompanyUserId
+	left join tblGender on tblCompanyUser.GenderId=tblGender.GenderId
 GO
 
 

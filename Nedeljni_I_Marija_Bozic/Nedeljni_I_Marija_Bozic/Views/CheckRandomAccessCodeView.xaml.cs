@@ -36,7 +36,7 @@ namespace Nedeljni_I_Marija_Bozic.Views
 
         private void btnOK_Click(object sender, RoutedEventArgs e)
         {
-           if(register.CheckAccessCode(txtCode.Text))
+           if(register.CheckAccessCode(txtCode.Password))
             {
                 Close();
                 register.MenagerBtn = true;

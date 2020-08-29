@@ -208,21 +208,14 @@
             <Label Grid.Column="4" Grid.Row="3" Name="lblValidationEmail" Padding="0" Grid.ColumnSpan="7" Grid.RowSpan="3" HorizontalAlignment="Left"/>
             <Label Grid.Column="1" Grid.Row="5" Name="lblBackupPassword" Content="Password hint" Padding="0" HorizontalAlignment="Right"/>
             <Label Grid.Column="4" Grid.Row="5" Name="lblValidationBackupPassword" Padding="0" Grid.ColumnSpan="5" Grid.RowSpan="5" HorizontalAlignment="Left"/>
-            <Label Grid.Column="1" Grid.Row="7" Name="lblLevelOfResponsability" Content="Responsibility level:" Padding="0" HorizontalAlignment="Right"/>
-            <Label Grid.Column="4" Grid.Row="7" Name="lblValidationLevelOfResponsability" Grid.ColumnSpan="7" Grid.RowSpan="5" Padding="0" HorizontalAlignment="Left"/>
-            <Label Grid.Column="1" Grid.Row="9" Name="lblNumberOfOfice" Content="Number of office:" Padding="0" HorizontalAlignment="Right"/>
-            <Label Grid.Column="4" Grid.Row="9" Name="lblValidationNumberOfOfice" Grid.ColumnSpan="7" Grid.RowSpan="5" Padding="0" HorizontalAlignment="Left"/>
+            <Label Grid.Column="1" Grid.Row="7" Name="lblNumberOfOfice" Content="Number of office:" Padding="0" HorizontalAlignment="Right"/>
+            <Label Grid.Column="4" Grid.Row="7" Name="lblValidationNumberOfOfice" Grid.ColumnSpan="7" Grid.RowSpan="5" Padding="0" HorizontalAlignment="Left"/>
             <TextBox Grid.Column="3" Grid.Row="3" Name="txtEmail" Height="20" Width="100" 
                  Text="{Binding Menager.Email, UpdateSourceTrigger=PropertyChanged}"/>
             <PasswordBox Grid.Column="3" Grid.Row="5" Name="txtBackupPassword" Height="20" Width="100"                 
-                     />
-            <ComboBox Grid.Column="3" Grid.Row="7" Name="cmbResponsibilitiLevel" Height="20" Width="100" 
-                  DisplayMemberPath="Name" Text="Choose" IsEditable="True"
-                  ItemsSource="{Binding LevelOfResponsibilityList, UpdateSourceTrigger=PropertyChanged}"                 
-                  SelectedItem="{Binding SelectedLevelOfResponsibility, UpdateSourceTrigger=PropertyChanged}"                
-                  />
-            <TextBox Grid.Column="3" Grid.Row="9" Name="txtNumberOfOffice" Height="20" Width="100" 
-                 Text="{Binding Menager.YearsOfService, UpdateSourceTrigger=PropertyChanged}"/>
+                     />           
+            <TextBox Grid.Column="3" Grid.Row="7" Name="txtNumberOfOffice" Height="20" Width="100" 
+                 Text="{Binding Menager.NumberOfOffice, UpdateSourceTrigger=PropertyChanged}"/>
         </Grid>
 
         <Button Grid.Column="5" Grid.Row="21" Name="btnSavemenager" Content="Add Menager" IsEnabled="True" Height="20"                 

@@ -291,14 +291,24 @@ namespace Nedeljni_I_Marija_Bozic.Views
         private void btnMenager_Click(object sender, RoutedEventArgs e)
         {
             CheckRandomAccessCodeView view = new CheckRandomAccessCodeView(register);
+            register.User.RoleId = 1;
             view.Show();
         }
 
         private void btnWorker_Click(object sender, RoutedEventArgs e)
         {
-            register.WorkerRegistry = true;
-            register.MenagerBtn = true;
-            register.WorkerBtn = true;
+            if(register.SectorList.Count==0 || register.ManagerList.Count == 0)
+            {
+                MessageBox.Show("Registration for workers is currently not possible");
+                register.WorkerBtn = true;
+            }
+            else
+            {
+                register.User.RoleId = 3;
+                register.WorkerRegistry = true;
+                register.MenagerBtn = true;
+                register.WorkerBtn = true;
+            }
         }
 
         private void btnSavemenager_Click(object sender, RoutedEventArgs e)
@@ -308,7 +318,7 @@ namespace Nedeljni_I_Marija_Bozic.Views
 
         private void btnSaveWorker_Click(object sender, RoutedEventArgs e)
         {
-            register.SaveWorkerExecute(txtPassword.Password);
+            register.SaveMenagerExecute(txtPassword.Password, "");
         }
     }
 }

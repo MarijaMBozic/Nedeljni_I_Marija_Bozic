@@ -31,7 +31,8 @@ namespace Nedeljni_I_Marija_Bozic.ViewModels
             SectorList = new ObservableCollection<Sector>(service.GettAllSectors());
             PositionList = new ObservableCollection<Position>(service.GettAllPositions());
             QualificationList = new ObservableCollection<Qualifications>(service.GettAllQualificationLevels());
-            LevelOfResponsibilityList = new ObservableCollection<LevelOfResponsibility>(service.GettAllLevelsOfResponsibility());
+            //LevelOfResponsibilityList = new ObservableCollection<LevelOfResponsibility>(service.GettAllLevelsOfResponsibility());
+            ManagerList = new ObservableCollection<Menager>(service.GetAllMenagers());
         }
         #endregion
         #region Property
@@ -190,7 +191,7 @@ namespace Nedeljni_I_Marija_Bozic.ViewModels
             }
         }
 
-        private Position selectedPosition;
+        private Position selectedPosition = new Position();
         public Position SelectedPosition
         {
             get
@@ -274,34 +275,48 @@ namespace Nedeljni_I_Marija_Bozic.ViewModels
             }
         }
 
-
-        private ObservableCollection<LevelOfResponsibility> levelOfResponsibilityList;
-        public ObservableCollection<LevelOfResponsibility> LevelOfResponsibilityList
+        private ObservableCollection<Menager> managerList;
+        public ObservableCollection<Menager> ManagerList
         {
             get
             {
-                return levelOfResponsibilityList;
+                return managerList;
             }
             set
             {
-                levelOfResponsibilityList = value;
-                OnPropertyChanged("LevelOfResponsibilityList");
+                managerList = value;
+                OnPropertyChanged("ManagerList");
             }
         }
 
-        private LevelOfResponsibility selectedLevelOfResponsibility;
-        public LevelOfResponsibility SelectedLevelOfResponsibility
-        {
-            get
-            {
-                return selectedLevelOfResponsibility;
-            }
-            set
-            {
-                selectedLevelOfResponsibility = value;
-                OnPropertyChanged("SelectedLevelOfResponsibility");
-            }
-        }
+
+        //private ObservableCollection<LevelOfResponsibility> levelOfResponsibilityList;
+        //public ObservableCollection<LevelOfResponsibility> LevelOfResponsibilityList
+        //{
+        //    get
+        //    {
+        //        return levelOfResponsibilityList;
+        //    }
+        //    set
+        //    {
+        //        levelOfResponsibilityList = value;
+        //        OnPropertyChanged("LevelOfResponsibilityList");
+        //    }
+        //}
+
+        //private LevelOfResponsibility selectedLevelOfResponsibility;
+        //public LevelOfResponsibility SelectedLevelOfResponsibility
+        //{
+        //    get
+        //    {
+        //        return selectedLevelOfResponsibility;
+        //    }
+        //    set
+        //    {
+        //        selectedLevelOfResponsibility = value;
+        //        OnPropertyChanged("SelectedLevelOfResponsibility");
+        //    }
+        //}
         #endregion
         #region Commands
 
@@ -309,34 +324,70 @@ namespace Nedeljni_I_Marija_Bozic.ViewModels
         {
             User.Password = parametar1;
             User.GenderId = selectedGender.GenderId;
-            User.MaritalStatusId = selectedMaritalStatus.MaritalStatusId;
-            User.RoleId =1;
+            User.MaritalStatusId = selectedMaritalStatus.MaritalStatusId;            
             try
             {
                 if (User.UserId == 0)
                 {
                     bool uniqueUserName = service.CheckUsernameUser(User.Username);
+                    bool uniqueJMBG = service.CheckJmbg(User.Jmbg);
                     bool uniqueEmail = service.CheckUniqueEmail(Menager.Email);
-                    if (!uniqueUserName && !uniqueEmail)
+                   
+                    if (!uniqueUserName && !uniqueEmail && !uniqueJMBG)
                     {
                         int userId = service.AddCompanyUser(User);
                         if (userId != 0)
                         {
-                            Menager.UserId = userId;
-                            Menager.NumOfSuccessfulProjects = 0;
-                            Menager.LevelOfResponsibility = selectedLevelOfResponsibility.LevelOfResponsibilityId;
-                            Menager.BackupPassword = parametar2 + "WPF";
-
-                            if (service.AddMenagerUser(Menager) != 0)
+                            if(User.RoleId==1)
                             {
-                                MessageBox.Show("You have successfully registrate!");
-                                Logging.LoggAction("RegistrationMenager", "Info", "Succesfull registrate new menager");
+                                Menager.UserId = userId;
+                                Menager.NumOfSuccessfulProjects = 0;
+                                Menager.BackupPassword = parametar2 + "WPF";
 
-                                MainWindow mainView = new MainWindow();
-                                mainView.Show();
-                                registrationView.Close();
+                                if (service.AddMenagerUser(Menager) != 0)
+                                {
+                                    MessageBox.Show("You have successfully registrate!");
+                                    Logging.LoggAction("RegistrationMenager", "Info", "Succesfull registrate new menager");
+
+                                    MainWindow mainView = new MainWindow();
+                                    mainView.Show();
+                                    registrationView.Close();
+                                }
                             }
+                            else if(User.RoleId==3)
+                            {
+                                Random random = new Random();
+                                menager = ManagerList[random.Next(0, ManagerList.Count)];
+                                Worker.UserId = userId;
+                                Worker.SectorId = selectedSector.SectorId;
+                                Worker.PositionId = selectedPosition.PositionId;
+                                Worker.QualificationsId = selectedQualification.QualificationsId;
+                                Worker.ManagerId = menager.UserId;
+
+                                if (service.AddWorkerUser(Worker) != 0)
+                                {
+                                    MessageBox.Show("You have successfully registrate!");
+                                    Logging.LoggAction("RegistrationWorker", "Info", "Succesfull registrate new worker");
+
+                                    MainWindow mainView = new MainWindow();
+                                    mainView.Show();
+                                    registrationView.Close();
+                                }
+                            }
+                            
                         }
+                    }
+                    else if (uniqueUserName)
+                    {
+                        MessageBox.Show("Username is not unique!");
+                    }
+                    else if(uniqueJMBG)
+                    {
+                        MessageBox.Show("JMBG is not unique!");
+                    }
+                    else if(uniqueEmail)
+                    {
+                        MessageBox.Show("JMBG is not unique!");
                     }
                 }               
             }
@@ -346,47 +397,6 @@ namespace Nedeljni_I_Marija_Bozic.ViewModels
                 Logging.LoggAction("RegistrationMenager", "Error", ex.ToString());
             }
         }
-
-        public void SaveWorkerExecute(string parametar)
-        {
-            User.Password = parametar;
-            User.GenderId = selectedGender.GenderId;
-            User.MaritalStatusId = selectedMaritalStatus.MaritalStatusId;
-            User.RoleId = 3;
-            try
-            {
-                if (User.UserId == 0)
-                {
-                    bool uniqueUserName = service.CheckUsernameUser(User.Username);
-                    if (!uniqueUserName)
-                    {
-                        int userId = service.AddCompanyUser(User);
-                        if (userId != 0)
-                        {
-                            Worker.UserId = userId;
-                            Worker.SectorId = selectedSector.SectorId;
-                            Worker.PositionId = selectedPosition.PositionId;
-                            Worker.QualificationsId = selectedQualification.QualificationsId;
-                            if (service.AddWorkerUser(Worker) != 0)
-                            {
-                                MessageBox.Show("You have successfully registrate!");
-                                Logging.LoggAction("RegistrationWorker", "Info", "Succesfull registrate new worker");
-
-                                MainWindow mainView = new MainWindow();
-                                mainView.Show();
-                                registrationView.Close();
-                            }
-                        }
-                    }
-                }
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show(ex.ToString());
-                Logging.LoggAction("RegistrationWorker", "Error", ex.ToString());
-            }
-        }
-
 
         public bool CheckAccessCode(string inputText)
         {

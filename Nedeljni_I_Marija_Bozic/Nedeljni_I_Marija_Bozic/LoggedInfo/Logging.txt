@@ -1,2 +1,42 @@
 [26/08/2020 15:19:33][AddNewAdmnViewModel][Info][Succesfull add new Admin] 
 [26/08/2020 16:14:24][AddNewAdmnViewModel][Info][Succesfull add new Admin] 
+[29/08/2020 11:59:31][RegistrationMenager][Error][System.Data.SqlClient.SqlException (0x80131904): The INSERT statement conflicted with the FOREIGN KEY constraint "FK__tblCompan__Level__1FB8AE52". The conflict occurred in database "Nedeljni_I_Bozic", table "dbo.tblLevelOfResponsibility", column 'LevelOfResponsibilityId'.
+The statement has been terminated.
+   at System.Data.SqlClient.SqlConnection.OnError(SqlException exception, Boolean breakConnection, Action`1 wrapCloseInAction)
+   at System.Data.SqlClient.SqlInternalConnection.OnError(SqlException exception, Boolean breakConnection, Action`1 wrapCloseInAction)
+   at System.Data.SqlClient.TdsParser.ThrowExceptionAndWarning(TdsParserStateObject stateObj, Boolean callerHasConnectionLock, Boolean asyncClose)
+   at System.Data.SqlClient.TdsParser.TryRun(RunBehavior runBehavior, SqlCommand cmdHandler, SqlDataReader dataStream, BulkCopySimpleResultSet bulkCopyHandler, TdsParserStateObject stateObj, Boolean& dataReady)
+   at System.Data.SqlClient.SqlDataReader.TryConsumeMetaData()
+   at System.Data.SqlClient.SqlDataReader.get_MetaData()
+   at System.Data.SqlClient.SqlCommand.FinishExecuteReader(SqlDataReader ds, RunBehavior runBehavior, String resetOptionsString, Boolean isInternal, Boolean forDescribeParameterEncryption, Boolean shouldCacheForAlwaysEncrypted)
+   at System.Data.SqlClient.SqlCommand.RunExecuteReaderTds(CommandBehavior cmdBehavior, RunBehavior runBehavior, Boolean returnStream, Boolean async, Int32 timeout, Task& task, Boolean asyncWrite, Boolean inRetry, SqlDataReader ds, Boolean describeParameterEncryptionRequest)
+   at System.Data.SqlClient.SqlCommand.RunExecuteReader(CommandBehavior cmdBehavior, RunBehavior runBehavior, Boolean returnStream, String method, TaskCompletionSource`1 completion, Int32 timeout, Task& task, Boolean& usedCache, Boolean asyncWrite, Boolean inRetry)
+   at System.Data.SqlClient.SqlCommand.RunExecuteReader(CommandBehavior cmdBehavior, RunBehavior runBehavior, Boolean returnStream, String method)
+   at System.Data.SqlClient.SqlCommand.ExecuteReader(CommandBehavior behavior, String method)
+   at System.Data.SqlClient.SqlCommand.ExecuteReader()
+   at Nedeljni_I_Marija_Bozic.Service.ServiceCode.AddMenagerUser(Menager user) in C:\Users\milan\Desktop\Nedeljni_I_Marija_Bozic\Nedeljni_I_Marija_Bozic\Nedeljni_I_Marija_Bozic\Service\ServiceCode.cs:line 481
+ClientConnectionId:c50d6a3f-ccf8-4d6f-9c4c-e79d1ae58c2b
+Error Number:547,State:0,Class:16] 
+[29/08/2020 12:11:47][RegistrationMenager][Info][Succesfull registrate new menager] 
+[29/08/2020 12:13:02][RegistrationMenager][Info][Succesfull registrate new menager] 
+[29/08/2020 12:19:19][RegistrationMenager][Info][Succesfull registrate new menager] 
+[29/08/2020 12:48:00][RegistrationMenager][Info][Succesfull registrate new menager] 
+[29/08/2020 13:10:03][RegistrationMenager][Error][System.Data.SqlClient.SqlException (0x80131904): The INSERT statement conflicted with the FOREIGN KEY constraint "FK__tblCompan__Posit__4F67C174". The conflict occurred in database "Nedeljni_I_Bozic", table "dbo.tblPosition", column 'PositionId'.
+The statement has been terminated.
+   at System.Data.SqlClient.SqlConnection.OnError(SqlException exception, Boolean breakConnection, Action`1 wrapCloseInAction)
+   at System.Data.SqlClient.SqlInternalConnection.OnError(SqlException exception, Boolean breakConnection, Action`1 wrapCloseInAction)
+   at System.Data.SqlClient.TdsParser.ThrowExceptionAndWarning(TdsParserStateObject stateObj, Boolean callerHasConnectionLock, Boolean asyncClose)
+   at System.Data.SqlClient.TdsParser.TryRun(RunBehavior runBehavior, SqlCommand cmdHandler, SqlDataReader dataStream, BulkCopySimpleResultSet bulkCopyHandler, TdsParserStateObject stateObj, Boolean& dataReady)
+   at System.Data.SqlClient.SqlDataReader.TryConsumeMetaData()
+   at System.Data.SqlClient.SqlDataReader.get_MetaData()
+   at System.Data.SqlClient.SqlCommand.FinishExecuteReader(SqlDataReader ds, RunBehavior runBehavior, String resetOptionsString, Boolean isInternal, Boolean forDescribeParameterEncryption, Boolean shouldCacheForAlwaysEncrypted)
+   at System.Data.SqlClient.SqlCommand.RunExecuteReaderTds(CommandBehavior cmdBehavior, RunBehavior runBehavior, Boolean returnStream, Boolean async, Int32 timeout, Task& task, Boolean asyncWrite, Boolean inRetry, SqlDataReader ds, Boolean describeParameterEncryptionRequest)
+   at System.Data.SqlClient.SqlCommand.RunExecuteReader(CommandBehavior cmdBehavior, RunBehavior runBehavior, Boolean returnStream, String method, TaskCompletionSource`1 completion, Int32 timeout, Task& task, Boolean& usedCache, Boolean asyncWrite, Boolean inRetry)
+   at System.Data.SqlClient.SqlCommand.RunExecuteReader(CommandBehavior cmdBehavior, RunBehavior runBehavior, Boolean returnStream, String method)
+   at System.Data.SqlClient.SqlCommand.ExecuteReader(CommandBehavior behavior, String method)
+   at System.Data.SqlClient.SqlCommand.ExecuteReader()
+   at Nedeljni_I_Marija_Bozic.Service.ServiceCode.AddWorkerUser(Worker user) in C:\Users\milan\Desktop\Nedeljni_I_Marija_Bozic\Nedeljni_I_Marija_Bozic\Nedeljni_I_Marija_Bozic\Service\ServiceCode.cs:line 518
+ClientConnectionId:6a20481a-21bd-4c94-b2d2-c6e417fbc087
+Error Number:547,State:0,Class:16] 
+[29/08/2020 13:16:27][RegistrationWorker][Info][Succesfull registrate new worker] 
+[29/08/2020 13:17:00][RegistrationWorker][Info][Succesfull registrate new worker] 

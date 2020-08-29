@@ -18,7 +18,7 @@ namespace Nedeljni_I_Marija_Bozic.Helpers
                 string[] credentials = File.ReadAllLines(locationFile);
                 string accesCode = credentials[0];            
                
-                if (accesCode == accessCodeInput)
+                if (accesCode.ToLower() == accessCodeInput.ToLower())
                 {
                     return true;
                 }

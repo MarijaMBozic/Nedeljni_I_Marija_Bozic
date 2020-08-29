@@ -91,7 +91,7 @@ create table tblCompanyWorker(
    FOREIGN KEY (ManagerId) REFERENCES tblCompanyUser(CompanyUserId),  
    SectorId              int                    not null,
    FOREIGN KEY (SectorId) REFERENCES tblSector(SectorId), 
-   PositionId            int                  not null,
+   PositionId            int                  ,
    FOREIGN KEY (PositionId) REFERENCES tblPosition(PositionId), 
    YearsOfService        int                  not null,
    Salary                money,

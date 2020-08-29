@@ -7,7 +7,7 @@
         mc:Ignorable="d"
         Title="Insert access code" Height="200" Width="300">
     <Grid>
-        <TextBox HorizontalAlignment="Left" Height="110" Margin="10,10,0,0" TextWrapping="Wrap" Name="txtCode" VerticalAlignment="Top" Width="270"/>
+        <PasswordBox HorizontalAlignment="Left" Height="110" Margin="10,10,0,0" Name="txtCode" VerticalAlignment="Top" Width="270"/>
         <Button x:Name="btnOK" Content="Ok" HorizontalAlignment="Left" VerticalAlignment="Top" Width="75" Margin="13,132,0,0" Click="btnOK_Click"/>
         <Button x:Name="btnQuit" Content="Quit" HorizontalAlignment="Left" VerticalAlignment="Top" Width="75" Margin="201,133,0,0" Click="btnQuit_Click" Height="18"/>
 

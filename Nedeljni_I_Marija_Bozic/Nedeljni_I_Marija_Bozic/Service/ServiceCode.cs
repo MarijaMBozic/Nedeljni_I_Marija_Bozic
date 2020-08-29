@@ -337,6 +337,52 @@ namespace Nedeljni_I_Marija_Bozic.Service
                 }
             }
         }
+           
+        public List<Menager> GetAllMenagers()
+        {
+            List<Menager> menagerList = new List<Menager>();
+            using (SqlConnection conn = ConnectionHelper.GetNewConnection())
+            {
+                conn.Open();
+                try
+                {
+                    using (SqlCommand cmd = conn.CreateCommand())
+                    {
+                        cmd.CommandText = "Get_AllMenagers";
+                        cmd.CommandType = CommandType.StoredProcedure;
+                        SqlDataAdapter adapter = new SqlDataAdapter();
+                        adapter.SelectCommand = cmd;
+                        DataTable dt = new DataTable();
+                        adapter.Fill(dt);
+                        foreach (DataRow row in dt.Rows)
+                        {
+                            Menager r = new Menager
+                            {
+                                UserId = int.Parse(row[0].ToString()),
+                                FirstName = row[1].ToString(),
+                                LastName = row[2].ToString(),
+                                GenderName = row[3].ToString(),
+                                Email = row[4].ToString(),                               
+                                NumOfSuccessfulProjects = int.Parse(row[5].ToString()),
+                                NumberOfOffice = int.Parse(row[6].ToString()),
+
+                            };
+                            menagerList.Add(r);
+                        }
+                        return menagerList;
+                    }
+                }
+                catch (Exception ex)
+                {
+                    System.Diagnostics.Debug.WriteLine("Exeption" + ex.Message.ToString());
+                    return menagerList;
+                }
+                finally
+                {
+                    conn.Close();
+                }
+            }
+        }
 
         public int AddCompanyUser(User user)
         {
@@ -428,7 +474,7 @@ namespace Nedeljni_I_Marija_Bozic.Service
                         cmd.Parameters.AddWithValue("@CompanyUserId", user.UserId);
                         cmd.Parameters.AddWithValue("@Email", user.Email);
                         cmd.Parameters.AddWithValue("@BackupPassword", HashPasswordHelper.HashPassword(user.BackupPassword));
-                        cmd.Parameters.AddWithValue("@LevelOfResponsibilityId", user.LevelOfResponsibility);
+                       
                         cmd.Parameters.AddWithValue("@NumOfSuccessfulProjects", user.NumberOfOffice);
                         cmd.Parameters.AddWithValue("@NumberOfOffice", user.NumberOfOffice);
                         SqlDataReader reader = cmd.ExecuteReader();
@@ -461,19 +507,19 @@ namespace Nedeljni_I_Marija_Bozic.Service
                 {
                     using (SqlCommand cmd = conn.CreateCommand())
                     {
-                        //cmd.CommandText = "Insert_Menager";
-                        //cmd.CommandType = CommandType.StoredProcedure;
-                        //cmd.Parameters.AddWithValue("@CompanyUserId", user.UserId);
-                        //cmd.Parameters.AddWithValue("@Email", user.Email);
-                        //cmd.Parameters.AddWithValue("@BackupPassword", HashPasswordHelper.HashPassword(user.BackupPassword));
-                        //cmd.Parameters.AddWithValue("@LevelOfResponsibilityId", user.LevelOfResponsibility);
-                        //cmd.Parameters.AddWithValue("@NumOfSuccessfulProjects", user.NumberOfOffice);
-                        //cmd.Parameters.AddWithValue("@NumberOfOffice", user.NumberOfOffice);
-                        //SqlDataReader reader = cmd.ExecuteReader();
-                        //if (reader.Read())
-                        //{
-                        //    user.ManagerId = int.Parse(reader.GetValue(0).ToString());
-                        //}
+                        cmd.CommandText = "Insert_Worker";
+                        cmd.CommandType = CommandType.StoredProcedure;
+                        cmd.Parameters.AddWithValue("@CompanyUserId", user.UserId);
+                        cmd.Parameters.AddWithValue("@ManagerId", user.ManagerId);
+                        cmd.Parameters.AddWithValue("@SectorId", user.SectorId);
+                        cmd.Parameters.AddWithValue("@PositionId", user.PositionId);
+                        cmd.Parameters.AddWithValue("@YearsOfService", user.YearsOfService);
+                        cmd.Parameters.AddWithValue("@QualificationsId", user.QualificationsId);
+                        SqlDataReader reader = cmd.ExecuteReader();
+                        if (reader.Read())
+                        {
+                            user.WorkerId = int.Parse(reader.GetValue(0).ToString());
+                        }
                     }
                 }
                 catch (Exception ex)
@@ -487,7 +533,7 @@ namespace Nedeljni_I_Marija_Bozic.Service
                     conn.Close();
                 }
             }
-            return user.ManagerId;
+            return user.WorkerId;
         }
 
         public bool CheckUsernameUser(string userName)
@@ -569,6 +615,39 @@ namespace Nedeljni_I_Marija_Bozic.Service
                         cmd.CommandText = "Check_UniqueEmail";
                         cmd.CommandType = CommandType.StoredProcedure;
                         cmd.Parameters.AddWithValue("@Email", email);
+                        SqlDataReader reader = cmd.ExecuteReader();
+                        if (reader.Read())
+                        {
+                            result = true;
+                        }
+                    }
+                }
+                catch (Exception ex)
+                {
+                    System.Diagnostics.Debug.WriteLine("Exeption" + ex.Message.ToString());
+                    result = false;
+                }
+                finally
+                {
+                    conn.Close();
+                }
+            }
+            return result;
+        }
+
+        public bool CheckJmbg(long jmbg)
+        {
+            bool result = false;
+            using (SqlConnection conn = ConnectionHelper.GetNewConnection())
+            {
+                conn.Open();
+                try
+                {
+                    using (SqlCommand cmd = conn.CreateCommand())
+                    {
+                        cmd.CommandText = "Check_UniqueJmbg";
+                        cmd.CommandType = CommandType.StoredProcedure;
+                        cmd.Parameters.AddWithValue("@JMBG", jmbg);
                         SqlDataReader reader = cmd.ExecuteReader();
                         if (reader.Read())
                         {
