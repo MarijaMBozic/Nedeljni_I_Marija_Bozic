@@ -322,79 +322,83 @@ namespace Nedeljni_I_Marija_Bozic.ViewModels
 
         public void SaveUserExecute(string parametar1, string parametar2)
         {
-            User.Password = parametar1;
-            User.GenderId = selectedGender.GenderId;
-            User.MaritalStatusId = selectedMaritalStatus.MaritalStatusId;            
-            try
+            MessageBoxResult result = MessageBox.Show("Are you sure you want to registrate?", "Registration", MessageBoxButton.YesNo);
+            if (result == MessageBoxResult.Yes)
             {
-                if (User.UserId == 0)
+                User.Password = parametar1;
+                User.GenderId = selectedGender.GenderId;
+                User.MaritalStatusId = selectedMaritalStatus.MaritalStatusId;
+                try
                 {
-                    bool uniqueUserName = service.CheckUsernameUser(User.Username);
-                    bool uniqueJMBG = service.CheckJmbg(User.Jmbg);
-                    bool uniqueEmail = service.CheckUniqueEmail(Menager.Email);
-                   
-                    if (!uniqueUserName && !uniqueEmail && !uniqueJMBG)
+                    if (User.UserId == 0)
                     {
-                        int userId = service.AddCompanyUser(User);
-                        if (userId != 0)
+                        bool uniqueUserName = service.CheckUsernameUser(User.Username);
+                        bool uniqueJMBG = service.CheckJmbg(User.Jmbg);
+                        bool uniqueEmail = service.CheckUniqueEmail(Menager.Email);
+
+                        if (!uniqueUserName && !uniqueEmail && !uniqueJMBG)
                         {
-                            if(User.RoleId==1)
+                            int userId = service.AddCompanyUser(User);
+                            if (userId != 0)
                             {
-                                Menager.UserId = userId;
-                                Menager.NumOfSuccessfulProjects = 0;
-                                Menager.BackupPassword = parametar2 + "WPF";
-
-                                if (service.AddMenagerUser(Menager) != 0)
+                                if (User.RoleId == 1)
                                 {
-                                    MessageBox.Show("You have successfully registrate!");
-                                    Logging.LoggAction("RegistrationMenager", "Info", "Succesfull registrate new menager");
+                                    Menager.UserId = userId;
+                                    Menager.NumOfSuccessfulProjects = 0;
+                                    Menager.BackupPassword = parametar2 + "WPF";
 
-                                    MainWindow mainView = new MainWindow();
-                                    mainView.Show();
-                                    registrationView.Close();
+                                    if (service.AddMenagerUser(Menager) != 0)
+                                    {
+                                        MessageBox.Show("You have successfully registrate!");
+                                        Logging.LoggAction("RegistrationMenager", "Info", "Succesfull registrate new menager");
+
+                                        MainWindow mainView = new MainWindow();
+                                        mainView.Show();
+                                        registrationView.Close();
+                                    }
                                 }
-                            }
-                            else if(User.RoleId==3)
-                            {
-                                Random random = new Random();
-                                menager = ManagerList[random.Next(0, ManagerList.Count)];
-                                Worker.UserId = userId;
-                                Worker.SectorId = selectedSector.SectorId;
-                                Worker.PositionId = selectedPosition.PositionId;
-                                Worker.QualificationsId = selectedQualification.QualificationsId;
-                                Worker.ManagerId = menager.UserId;
-
-                                if (service.AddWorkerUser(Worker) != 0)
+                                else if (User.RoleId == 3)
                                 {
-                                    MessageBox.Show("You have successfully registrate!");
-                                    Logging.LoggAction("RegistrationWorker", "Info", "Succesfull registrate new worker");
+                                    Random random = new Random();
+                                    menager = ManagerList[random.Next(0, ManagerList.Count)];
+                                    Worker.UserId = userId;
+                                    Worker.SectorId = selectedSector.SectorId;
+                                    Worker.PositionId = selectedPosition.PositionId;
+                                    Worker.QualificationsId = selectedQualification.QualificationsId;
+                                    Worker.ManagerId = menager.ManagerId;
 
-                                    MainWindow mainView = new MainWindow();
-                                    mainView.Show();
-                                    registrationView.Close();
+                                    if (service.AddWorkerUser(Worker) != 0)
+                                    {
+                                        MessageBox.Show("You have successfully registrate!");
+                                        Logging.LoggAction("RegistrationWorker", "Info", "Succesfull registrate new worker");
+
+                                        MainWindow mainView = new MainWindow();
+                                        mainView.Show();
+                                        registrationView.Close();
+                                    }
                                 }
+
                             }
-                            
+                        }
+                        else if (uniqueUserName)
+                        {
+                            MessageBox.Show("Username is not unique!");
+                        }
+                        else if (uniqueJMBG)
+                        {
+                            MessageBox.Show("JMBG is not unique!");
+                        }
+                        else if (uniqueEmail)
+                        {
+                            MessageBox.Show("JMBG is not unique!");
                         }
                     }
-                    else if (uniqueUserName)
-                    {
-                        MessageBox.Show("Username is not unique!");
-                    }
-                    else if(uniqueJMBG)
-                    {
-                        MessageBox.Show("JMBG is not unique!");
-                    }
-                    else if(uniqueEmail)
-                    {
-                        MessageBox.Show("JMBG is not unique!");
-                    }
-                }               
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show(ex.ToString());
-                Logging.LoggAction("RegistrationMenager", "Error", ex.ToString());
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show(ex.ToString());
+                    Logging.LoggAction("RegistrationMenager", "Error", ex.ToString());
+                }
             }
         }
 

@@ -90,7 +90,7 @@ namespace Nedeljni_I_Marija_Bozic
                 lblValidationPassword.Content = "The password must contains at least:\nMinimum length 6 characters!";
             }
 
-            string patternPassword = @"^[A-Za-z0-9\d@$!%*#?&]{6,}$";
+            string patternPassword = @"^[A-Za-z0-9\d@$!%*#?&]{5,}$";
             Match match = Regex.Match(txtPassword.Password, patternPassword, RegexOptions.IgnoreCase);
 
             if (!match.Success)

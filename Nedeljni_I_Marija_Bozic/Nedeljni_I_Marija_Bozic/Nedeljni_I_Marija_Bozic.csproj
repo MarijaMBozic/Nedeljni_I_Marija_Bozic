@@ -76,6 +76,10 @@
     </ApplicationDefinition>
     <Compile Include="Converters\BoolToVisibilityConverter.cs" />
     <Compile Include="Converters\BoolToVisibilityInverseConverter.cs" />
+    <Compile Include="Converters\Level13VisibilityConverter.cs" />
+    <Compile Include="Converters\Level3VisibilityConverter.cs" />
+    <Compile Include="Converters\Level2VisibilityConverter.cs" />
+    <Compile Include="Converters\Level12VisibilityConverter.cs" />
     <Compile Include="Helpers\Logging.cs" />
     <Compile Include="Helpers\HashPasswordHelper.cs" />
     <Compile Include="Helpers\RandomString.cs" />
@@ -91,25 +95,45 @@
     <Compile Include="Models\Position.cs" />
     <Compile Include="Models\Project.cs" />
     <Compile Include="Models\Role.cs" />
+    <Compile Include="Models\Salary.cs" />
     <Compile Include="Models\Sector.cs" />
     <Compile Include="Models\User.cs" />
     <Compile Include="Models\Worker.cs" />
     <Compile Include="Service\ServiceCode.cs" />
     <Compile Include="ViewModels\AddNewAdminViewModel.cs" />
+    <Compile Include="ViewModels\AdminViewModel.cs" />
     <Compile Include="ViewModels\MainWindowViewModel.cs" />
+    <Compile Include="ViewModels\MenagerViewModel.cs" />
+    <Compile Include="ViewModels\ProjectViewModel.cs" />
     <Compile Include="ViewModels\RegistrationViewModel.cs" />
     <Compile Include="ViewModels\ViewModelBase.cs" />
+    <Compile Include="ViewModels\WorkerViewModel.cs" />
     <Compile Include="Views\AddNewAdmin.xaml.cs">
       <DependentUpon>AddNewAdmin.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\AdminView.xaml.cs">
+      <DependentUpon>AdminView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\CheckRandomAccessCodeView.xaml.cs">
       <DependentUpon>CheckRandomAccessCodeView.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Views\ListOfReports.xaml.cs">
+      <DependentUpon>ListOfReports.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\ManagerView.xaml.cs">
+      <DependentUpon>ManagerView.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\MasterAdminView.xaml.cs">
       <DependentUpon>MasterAdminView.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Views\ProjectView.xaml.cs">
+      <DependentUpon>ProjectView.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\Registration.xaml.cs">
       <DependentUpon>Registration.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\WorkerView.xaml.cs">
+      <DependentUpon>WorkerView.xaml</DependentUpon>
     </Compile>
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
@@ -129,7 +153,19 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="Views\AdminView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Views\CheckRandomAccessCodeView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\ListOfReports.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\ManagerView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -137,7 +173,15 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="Views\ProjectView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Views\Registration.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\WorkerView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

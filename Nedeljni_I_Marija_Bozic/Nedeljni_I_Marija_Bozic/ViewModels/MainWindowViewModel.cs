@@ -1,5 +1,6 @@
 ﻿using Nedeljni_I_Marija_Bozic.Command;
 using Nedeljni_I_Marija_Bozic.Helpers;
+using Nedeljni_I_Marija_Bozic.Models;
 using Nedeljni_I_Marija_Bozic.Service;
 using Nedeljni_I_Marija_Bozic.Views;
 using System;
@@ -68,7 +69,57 @@ namespace Nedeljni_I_Marija_Bozic.ViewModels
                     MasterAdminView window = new MasterAdminView();
                     window.Show();
                     main.Close();
-
+                }
+                else if(service.LoginUserPass(username, password) != null)
+                {
+                    if(ServiceCode.CurrentUser.RoleId==1)
+                    {
+                        Menager menager = service.GetMenagerByUserId(ServiceCode.CurrentUser.UserId);
+                        if(menager.LevelOfResponsibility==4)
+                        {
+                            MessageBox.Show("Your account is not yet available.\nWait for the admin to assign you \na level of responsibility ");
+                        }
+                        else
+                        {
+                            ManagerView managerView = new ManagerView(menager);
+                            managerView.Show();
+                            main.Close();
+                        }                       
+                    }
+                    else if(ServiceCode.CurrentUser.RoleId == 2)
+                    {
+                        Administrator admin = service.GetAdminByUserId(ServiceCode.CurrentUser.UserId);
+                        if (admin.ExpirationDate<DateTime.Now)
+                        {
+                            MessageBox.Show("You need to contact company's menagment\nTo extend your access to acount!");
+                        }
+                        else
+                        {
+                            AdminView adminView = new AdminView();
+                            adminView.Show();
+                            main.Close();
+                        }
+                    }
+                    else if(ServiceCode.CurrentUser.RoleId == 3)
+                    {
+                        WorkerView workerView = new WorkerView();
+                        workerView.Show();
+                        main.Close();
+                    }
+                }
+                else if(service.LoginManagerBackUpPass(username, password) != null)
+                {
+                    Menager menager = service.GetMenagerByUserId(ServiceCode.CurrentUser.UserId);
+                    if (menager.LevelOfResponsibility == 3)
+                    {
+                        MessageBox.Show("Your account is not yet available.\nWait for the admin to assign you \na level of responsibility ");
+                    }
+                    else
+                    {
+                        ManagerView managerView = new ManagerView(menager);
+                        managerView.Show();
+                        main.Close();
+                    }
                 }
                 else
                 {

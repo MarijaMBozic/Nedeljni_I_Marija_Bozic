@@ -4,10 +4,12 @@ GO
 USE Nedeljni_I_Bozic;
 
 drop table if exists tblWorkersOnProject 
+drop table if exists tblReport
 drop table if exists tblProject
 drop table if exists tblCompanyAdministrator
 drop table if exists tblCompanyWorker
 drop table if exists tblCompanyMenager
+drop table if exists tblSalary
 drop table if exists tblCompanyUser
 drop table if exists tblRealizationStatus
 drop table if exists tblPosition
@@ -52,13 +54,13 @@ create table tblAdministratorType(
 
 create table tblSector(
    SectorId       int            identity (1,1) primary key,   
-   Name           nvarchar(100)          not null,
+   Name           nvarchar(100)  unique         not null,
    Description    nvarchar(100)          
    )
 
 create table tblPosition(
    PositionId       int            identity (1,1) primary key,   
-   Name           nvarchar(100)          not null,
+   Name           nvarchar(100)   unique       not null,
    Description    nvarchar(100)          
    )
 
@@ -94,7 +96,6 @@ create table tblCompanyWorker(
    PositionId            int                  ,
    FOREIGN KEY (PositionId) REFERENCES tblPosition(PositionId), 
    YearsOfService        int                  not null,
-   Salary                money,
    QualificationsId      int				  not null,
    FOREIGN KEY (QualificationsId) REFERENCES tblQualifications(QualificationsId)
 )
@@ -108,7 +109,6 @@ create table tblCompanyMenager(
    LevelOfResponsibilityId    int               ,
    FOREIGN KEY (LevelOfResponsibilityId) REFERENCES tblLevelOfResponsibility(LevelOfResponsibilityId), 
    NumOfSuccessfulProjects    int,
-   Salary                money,
    NumberOfOffice        int			        not null
 )
 
@@ -135,7 +135,19 @@ create table tblProject(
 	RealizationStatusId         int       not null,
 	FOREIGN KEY (RealizationStatusId) REFERENCES tblRealizationStatus(RealizationStatusId), 
 	ManagerId  int       not null,
-    FOREIGN KEY (ManagerId) REFERENCES tblCompanyUser(CompanyUserId)  
+    FOREIGN KEY (ManagerId) REFERENCES tblCompanyMenager(CompanyMenagerId)  
+)
+
+create table tblReport(
+	ReportId      int            identity (1,1) primary key, 	
+	ProjectId     int                     not null,
+	FOREIGN KEY (ProjectId) REFERENCES tblProject(ProjectId),  
+	CompanyUserId         int             not null,
+    FOREIGN KEY (CompanyUserId) REFERENCES tblCompanyUser(CompanyUserId),
+    ClientName     nvarchar(100)          not null,
+	Date           date                   not null,
+	Description    nvarchar(500)          not null,
+    Hours          int                    not null	
 )
 
 create table tblWorkersOnProject(
@@ -144,6 +156,15 @@ create table tblWorkersOnProject(
    FOREIGN KEY (ProjectId) REFERENCES tblProject(ProjectId),
    CompanyUserId           int                    not null,
    FOREIGN KEY (CompanyUserId) REFERENCES tblCompanyUser(CompanyUserId), 
+)
+
+create table tblSalary(
+   SalaryId      int           identity (1,1) primary key, 
+   CompanyUserId               int                    not null,
+   FOREIGN KEY (CompanyUserId) REFERENCES tblCompanyUser(CompanyUserId),  
+   SalaryMonth                 int                    not null,
+   SalaryYear                  int                    not null,   
+   Salary                       money                  not null   
 )
 
 create table tblMasterAcount(
@@ -207,3 +228,11 @@ values('Advisor'),
 
 insert into tblMasterAcount(Username, Password)
 values('WPFMaster', '4fvikKVCI/UlrU/Dio8//wU5BNg=')
+
+--insert into tblProject(Name, ClientName, Description, DateOfConclusionOfContract, ManagerWhoSignedContractId, HourlyRate,
+--StartDateProject, EndDateProject, RealizationStatusId, ManagerId)
+--values('WPF', 'DMS', 'Neki opis', '02/02/2020', 5, 250, '04/04/2020', '10/10/2020','2', 1 )
+
+--insert into tblReport(ProjectId, CompanyUserId, ClientName, Date, Description, Hours)
+--values(2,1, 'DMS','06/29/2020', 'Neki opis', 4 ),
+	  --(4,1, 'VIP','06/29/2020', 'Neki opis', 4 )

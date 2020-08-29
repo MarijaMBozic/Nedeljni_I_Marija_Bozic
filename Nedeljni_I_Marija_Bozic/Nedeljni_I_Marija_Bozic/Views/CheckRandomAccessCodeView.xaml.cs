@@ -36,20 +36,22 @@ namespace Nedeljni_I_Marija_Bozic.Views
 
         private void btnOK_Click(object sender, RoutedEventArgs e)
         {
-           if(register.CheckAccessCode(txtCode.Password))
-            {
-                Close();
-                register.MenagerBtn = true;
-                register.WorkerBtn = true;
-            }
-           if(register.count==0)
-            {
-                Close();
-                MessageBox.Show("The code is not valid!\nYou no longer have the option to register as a manager.\nYou can only register as a worker!");
-                register.WorkerRegistry = true;
-                register.MenagerBtn = true;
-                register.WorkerBtn = true;
-            }
+
+                if (register.CheckAccessCode(txtCode.Password))
+                {
+                    Close();
+                    register.MenagerBtn = true;
+                    register.WorkerBtn = true;
+                }
+                if (register.count == 0)
+                {
+                    Close();
+                    MessageBox.Show("The code is not valid!\nYou no longer have the option to register as a manager.\nYou can only register as a worker!");
+                    register.WorkerRegistry = true;
+                    register.MenagerBtn = true;
+                    register.WorkerBtn = true;
+                }
+            
         }
     }
 }

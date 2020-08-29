@@ -11,9 +11,12 @@ namespace Nedeljni_I_Marija_Bozic.Models
         public int WorkerId { get; set; }
         public int ManagerId { get; set; }
         public int SectorId { get; set; }
+        public string SectorName { get; set; }
         public int PositionId { get; set; }
+        public string PositionName { get; set; }
         public int YearsOfService { get; set; }
         public double Salary { get; set; }
         public int QualificationsId { get; set; }
+        public string QualificationName { get; set; }
     }
 }

@@ -328,9 +328,13 @@ namespace Nedeljni_I_Marija_Bozic.Views
 
         private void btnMenager_Click(object sender, RoutedEventArgs e)
         {
-            CheckRandomAccessCodeView view = new CheckRandomAccessCodeView(register);
-            register.User.RoleId = 1;
-            view.Show();
+            MessageBoxResult result = MessageBox.Show("Are you sure you want to registrate as menager", "Registration", MessageBoxButton.YesNo);
+            if (result == MessageBoxResult.Yes)
+            {
+                CheckRandomAccessCodeView view = new CheckRandomAccessCodeView(register);
+                register.User.RoleId = 1;
+                view.Show();
+            }
         }
 
         private void btnWorker_Click(object sender, RoutedEventArgs e)

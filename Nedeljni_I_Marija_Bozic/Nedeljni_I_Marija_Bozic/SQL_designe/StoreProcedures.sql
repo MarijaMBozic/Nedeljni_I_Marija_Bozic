@@ -79,6 +79,21 @@ AS
 	where Username=@Username and Password=@Password
 GO
 
+CREATE or alter PROCEDURE Login_User
+@Username nvarchar(100), @Password nvarchar(max)
+AS
+	select CompanyUserId, FirstName, LastName, Username, RoleId from tblCompanyUser
+	where Username=@Username and Password=@Password
+GO
+
+CREATE or alter PROCEDURE Login_UserBackupPass
+@Username nvarchar(100), @Password nvarchar(max)
+AS
+	select tblCompanyUser.CompanyUserId, FirstName, LastName, Username, RoleId from tblCompanyUser
+	left join tblCompanyMenager on tblCompanyUser.CompanyUserId=tblCompanyMenager.CompanyUserId
+	where Username=@Username and BackupPassword=@Password
+GO
+
 CREATE  PROCEDURE Insert_CompaniUser
 	@FirstName nvarchar(100),@LastName nvarchar(100), 
 	@JMBG bigint, @GenderId int,  
@@ -136,25 +151,71 @@ AS
 	end
 GO
 
-
-
- 
-
-
-CREATE or alter PROCEDURE Get_AllMenagers
+CREATE or alter PROCEDURE Get_AllMenagersId
 AS
-	select tblCompanyUser.CompanyUserId,FirstName, LastName, tblGender.Name,
-	 tblCompanyMenager.Email,
-	 tblCompanyMenager.NumOfSuccessfulProjects, tblCompanyMenager.NumberOfOffice 
-	 from tblCompanyUser
-	left join tblCompanyMenager on   tblCompanyUser.CompanyUserId=tblCompanyMenager.CompanyUserId
-	left join tblGender on tblCompanyUser.GenderId=tblGender.GenderId
+	select  CompanyMenagerId from tblCompanyMenager
 GO
 
+CREATE or alter PROCEDURE Get_MenagerByUserId
+@CompanyUserId int
+AS
+	select tblCompanyUser.CompanyUserId, FirstName, LastName, JMBG, tblGender.Name, Address, 
+	tblMaritalStatus.Name, Username, 
+	tblCompanyMenager.Email, tblCompanyMenager.LevelOfResponsibilityId, 
+	tblCompanyMenager.NumOfSuccessfulProjects, tblCompanyMenager.NumberOfOffice,  CompanyMenagerId
+	from tblCompanyUser
+	left join tblCompanyMenager on   tblCompanyUser.CompanyUserId=tblCompanyMenager.CompanyUserId
+	left join tblGender on tblCompanyUser.GenderId=tblGender.GenderId
+	left join tblMaritalStatus on tblCompanyUser.MaritalStatusId=tblMaritalStatus.MaritalStatusId
+	where tblCompanyUser.CompanyUserId=@CompanyUserId and RoleId=1
+GO
 
+CREATE or alter PROCEDURE Get_WorkerByUserId
+@CompanyUserId int
+AS
+	select tblCompanyUser.CompanyUserId, FirstName, LastName, JMBG, tblGender.Name, Address, 
+	tblMaritalStatus.Name, Username, tblSector.Name, tblPosition.Name, YearsOfService,
+	tblQualifications.Name
+	from tblCompanyUser
+	left join tblCompanyWorker on   tblCompanyUser.CompanyUserId=tblCompanyWorker.CompanyUserId
+	left join tblGender on tblCompanyUser.GenderId=tblGender.GenderId
+	left join tblMaritalStatus on tblCompanyUser.MaritalStatusId=tblMaritalStatus.MaritalStatusId
+	left join tblSector on tblCompanyWorker.SectorId=tblSector.SectorId
+	left join tblPosition on tblCompanyWorker.PositionId=tblPosition.PositionId
+	left join tblQualifications on tblCompanyWorker.QualificationsId=tblQualifications.QualificationsId
+	where tblCompanyUser.CompanyUserId=@CompanyUserId and RoleId=3
+GO
 
+CREATE or alter PROCEDURE Get_AllWorkersByMenagerId
+@MenagerId int
+AS
+	select tblCompanyUser.CompanyUserId, FirstName, LastName, JMBG, tblGender.Name, Address, 
+	tblMaritalStatus.Name, Username, tblSector.Name, tblPosition.Name, YearsOfService,
+	tblQualifications.Name
+	from tblCompanyUser
+	left join tblCompanyWorker on   tblCompanyUser.CompanyUserId=tblCompanyWorker.CompanyUserId
+	left join tblGender on tblCompanyUser.GenderId=tblGender.GenderId
+	left join tblMaritalStatus on tblCompanyUser.MaritalStatusId=tblMaritalStatus.MaritalStatusId
+	left join tblSector on tblCompanyWorker.SectorId=tblSector.SectorId
+	left join tblPosition on tblCompanyWorker.PositionId=tblPosition.PositionId
+	left join tblQualifications on tblCompanyWorker.QualificationsId=tblQualifications.QualificationsId
+	where tblCompanyWorker.ManagerId=@MenagerId 
+GO
 
-
+CREATE or alter PROCEDURE Get_AdminByUserId
+@CompanyUserId int
+AS
+	select tblCompanyUser.CompanyUserId, FirstName, LastName, JMBG, tblGender.Name, Address, 
+	tblMaritalStatus.Name, Username, 
+	tblAdministratorType.Name, tblCompanyAdministrator.ExpirationDate
+	from tblCompanyUser
+	left join tblCompanyWorker on   tblCompanyUser.CompanyUserId=tblCompanyWorker.CompanyUserId
+	left join tblGender on tblCompanyUser.GenderId=tblGender.GenderId
+	left join tblMaritalStatus on tblCompanyUser.MaritalStatusId=tblMaritalStatus.MaritalStatusId
+	left join tblCompanyAdministrator on tblCompanyUser.CompanyUserId=tblCompanyAdministrator.CompanyUserId
+	left join tblAdministratorType on tblCompanyAdministrator.AdministratorTypeId=tblAdministratorType.AdministratorTypeId
+	where tblCompanyUser.CompanyUserId=@CompanyUserId and RoleId=2
+GO
 
 
 

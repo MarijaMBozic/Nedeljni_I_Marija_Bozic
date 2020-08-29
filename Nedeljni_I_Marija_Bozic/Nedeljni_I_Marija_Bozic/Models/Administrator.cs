@@ -11,6 +11,7 @@ namespace Nedeljni_I_Marija_Bozic.Models
         public int AdministratorId { get; set; }
         public int CompanyUserId { get; set; }
         public int AdministratorTypeId { get; set; }
+        public string AdministratorTypeName { get; set; }
         public DateTime ExpirationDate { get; set; }
     }
 }
