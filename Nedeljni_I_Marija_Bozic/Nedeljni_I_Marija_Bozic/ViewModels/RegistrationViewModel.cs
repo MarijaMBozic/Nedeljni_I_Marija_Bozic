@@ -320,7 +320,7 @@ namespace Nedeljni_I_Marija_Bozic.ViewModels
         #endregion
         #region Commands
 
-        public void SaveMenagerExecute(string parametar1, string parametar2)
+        public void SaveUserExecute(string parametar1, string parametar2)
         {
             User.Password = parametar1;
             User.GenderId = selectedGender.GenderId;

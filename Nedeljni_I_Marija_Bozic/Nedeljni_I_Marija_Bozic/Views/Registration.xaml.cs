@@ -29,14 +29,19 @@ namespace Nedeljni_I_Marija_Bozic.Views
         private bool isValidPassword;
         private bool isValidMaritalStatus;
         private bool isValidJMBG;
+        private bool isValidSector;
+        private bool isValidYearsOfService;
+        private bool isValidQualification;
+        private bool isValidEmail;
+        private bool isValidBackupPassword;
+        private bool isValidNumberOfOfice;
 
         RegistrationViewModel register;
-
         public Registration()
-        {
-            InitializeComponent();
+        {            
             register = new RegistrationViewModel(this);
             this.DataContext = register;
+            InitializeComponent();
         }
 
         private void btnQuit_Click(object sender, RoutedEventArgs e)
@@ -46,7 +51,7 @@ namespace Nedeljni_I_Marija_Bozic.Views
             Close();
         }
 
-        private void IsRegistrationUserEnabled()
+        private bool IsRegistrationUserWorkerEnabled()
         {
             if (isValidFirstName &&
                 isValidlastName &&
@@ -55,13 +60,38 @@ namespace Nedeljni_I_Marija_Bozic.Views
                 isValidAddress &&
                 isValidMaritalStatus &&
                 isValidUsername &&
-                isValidPassword )
+                isValidPassword &&
+                isValidSector &&
+                isValidYearsOfService &&
+                isValidQualification)
             {
-                btnSaveWorker.IsEnabled = true;
+                return true;
             }
             else
             {
-                btnSaveWorker.IsEnabled = false;
+               return false;
+            }
+        }
+
+        private bool IsRegistrationUserMenagerEnabled()
+        {
+            if (isValidFirstName &&
+                isValidlastName &&
+                isValidJMBG &&
+                isValidGender &&
+                isValidAddress &&
+                isValidMaritalStatus &&
+                isValidUsername &&
+                isValidPassword &&
+                isValidEmail &&
+                isValidBackupPassword &&
+                isValidNumberOfOfice)
+            {
+                return true;
+            }
+            else
+            {
+                return false;
             }
         }
 
@@ -91,7 +121,8 @@ namespace Nedeljni_I_Marija_Bozic.Views
                 txtFirstName.Foreground = new SolidColorBrush(Colors.Black);
                 isValidFirstName = true;
             }
-            IsRegistrationUserEnabled();
+            IsRegistrationUserWorkerEnabled();
+            IsRegistrationUserMenagerEnabled();
         }
 
         private void txtLastName_TextChanged(object sender, TextChangedEventArgs e)
@@ -120,7 +151,8 @@ namespace Nedeljni_I_Marija_Bozic.Views
                 txtLastName.Foreground = new SolidColorBrush(Colors.Black);
                 isValidlastName = true;
             }
-            IsRegistrationUserEnabled();
+            IsRegistrationUserWorkerEnabled();
+            IsRegistrationUserMenagerEnabled();
 
         }
 
@@ -148,7 +180,8 @@ namespace Nedeljni_I_Marija_Bozic.Views
                 txtJMBG.Foreground = new SolidColorBrush(Colors.Black);
                 isValidJMBG = true;
             }
-            IsRegistrationUserEnabled();
+            IsRegistrationUserWorkerEnabled();
+            IsRegistrationUserMenagerEnabled();
         }
 
         private void cmbGender_SelectionChanged(object sender, SelectionChangedEventArgs e)
@@ -173,7 +206,8 @@ namespace Nedeljni_I_Marija_Bozic.Views
                 lblValidationGender.Foreground = new SolidColorBrush(Colors.Black);
                 isValidGender = true;
             }
-            IsRegistrationUserEnabled();
+            IsRegistrationUserWorkerEnabled();
+            IsRegistrationUserMenagerEnabled();
         }
 
         private void txtAddress_TextChanged(object sender, TextChangedEventArgs e)
@@ -202,7 +236,8 @@ namespace Nedeljni_I_Marija_Bozic.Views
                 txtAddress.Foreground = new SolidColorBrush(Colors.Black);
                 isValidAddress = true;
             }
-            IsRegistrationUserEnabled();
+            IsRegistrationUserWorkerEnabled();
+            IsRegistrationUserMenagerEnabled();
         }
 
         private void cmbMaritalStatus_SelectionChanged(object sender, SelectionChangedEventArgs e)
@@ -227,7 +262,8 @@ namespace Nedeljni_I_Marija_Bozic.Views
                 lblValidationMaritalStatus.Foreground = new SolidColorBrush(Colors.Black);
                 isValidMaritalStatus = true;
             }
-            IsRegistrationUserEnabled();
+            IsRegistrationUserWorkerEnabled();
+            IsRegistrationUserMenagerEnabled();
         }
 
         private void txtUsername_TextChanged(object sender, TextChangedEventArgs e)
@@ -256,7 +292,8 @@ namespace Nedeljni_I_Marija_Bozic.Views
                 txtUsername.Foreground = new SolidColorBrush(Colors.Black);
                 isValidUsername = true;
             }
-            IsRegistrationUserEnabled();
+            IsRegistrationUserWorkerEnabled();
+            IsRegistrationUserMenagerEnabled();
         }
 
         private void txtPassword_PasswordChanged(object sender, RoutedEventArgs e)
@@ -285,7 +322,8 @@ namespace Nedeljni_I_Marija_Bozic.Views
                 txtPassword.Foreground = new SolidColorBrush(Colors.Black);
                 isValidPassword = true;
             }
-            IsRegistrationUserEnabled();
+            IsRegistrationUserWorkerEnabled();
+            IsRegistrationUserMenagerEnabled();
         }
 
         private void btnMenager_Click(object sender, RoutedEventArgs e)
@@ -313,12 +351,197 @@ namespace Nedeljni_I_Marija_Bozic.Views
 
         private void btnSavemenager_Click(object sender, RoutedEventArgs e)
         {
-            register.SaveMenagerExecute(txtPassword.Password, txtBackupPassword.Password);
+            if (IsRegistrationUserMenagerEnabled())
+            {
+                register.SaveUserExecute(txtPassword.Password, txtBackupPassword.Password);
+            }
+            else
+            {
+                MessageBox.Show("You have not filled in all required fields");
+            }
         }
 
         private void btnSaveWorker_Click(object sender, RoutedEventArgs e)
         {
-            register.SaveMenagerExecute(txtPassword.Password, "");
+            if (IsRegistrationUserWorkerEnabled())
+            {
+                register.SaveUserExecute(txtPassword.Password, "");
+            }
+            else
+            {
+                MessageBox.Show("You have not filled in all required fields");
+            }            
+        }
+
+        private void cmbSector_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            if (cmbSector.Focus())
+            {
+                lblValidationSector.Visibility = Visibility.Visible;
+                lblValidationSector.FontSize = 16;
+                lblValidationSector.Foreground = new SolidColorBrush(Colors.Red);
+                lblValidationSector.Content = "You have to select sector!";
+            }
+
+            if (cmbSector.SelectedItem == null)
+            {
+                lblValidationSector.BorderBrush = new SolidColorBrush(Colors.Red);
+                lblValidationSector.Foreground = new SolidColorBrush(Colors.Red);
+                isValidSector = false;
+            }
+            else
+            {
+                lblValidationGender.BorderBrush = new SolidColorBrush(Colors.Black);
+                lblValidationGender.Foreground = new SolidColorBrush(Colors.Black);
+                isValidSector = true;
+            }
+            IsRegistrationUserWorkerEnabled();
+        }
+
+        private void txtYearsOfexpirienc_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            if (txtYearsOfexpirienc.Focus())
+            {
+                lblValidationYearsOfService.Visibility = Visibility.Visible;
+                lblValidationYearsOfService.FontSize = 16;
+                lblValidationYearsOfService.Foreground = new SolidColorBrush(Colors.Red);
+                lblValidationYearsOfService.Content = "The have to input years of service!\nYears of service must be between \n1 and 45";
+            }
+
+            string patternYearsOfService = @"^([0-9]{1,2})$";
+            Match match = Regex.Match(txtYearsOfexpirienc.Text, patternYearsOfService, RegexOptions.IgnoreCase);
+
+            bool isValidYears = int.TryParse(txtYearsOfexpirienc.Text, out int value);
+
+            if (!match.Success || value >45 || value<0)
+            {
+                txtYearsOfexpirienc.BorderBrush = new SolidColorBrush(Colors.Red);
+                txtYearsOfexpirienc.Foreground = new SolidColorBrush(Colors.Red);
+                isValidYearsOfService = false;
+            }
+            else
+            {
+                lblValidationYearsOfService.Visibility = Visibility.Hidden;
+                txtYearsOfexpirienc.BorderBrush = new SolidColorBrush(Colors.Black);
+                txtYearsOfexpirienc.Foreground = new SolidColorBrush(Colors.Black);
+                isValidYearsOfService = true;
+            }
+            IsRegistrationUserWorkerEnabled();
+            
+        }
+
+        private void cmbQualification_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            if (cmbQualification.Focus())
+            {
+                lblValidationQualification.Visibility = Visibility.Visible;
+                lblValidationQualification.FontSize = 16;
+                lblValidationQualification.Foreground = new SolidColorBrush(Colors.Red);
+                lblValidationQualification.Content = "You have to select qualification level!";
+            }
+
+            if (cmbQualification.SelectedItem == null)
+            {
+                lblValidationQualification.BorderBrush = new SolidColorBrush(Colors.Red);
+                lblValidationQualification.Foreground = new SolidColorBrush(Colors.Red);
+                isValidQualification = false;
+            }
+            else
+            {
+                lblValidationQualification.BorderBrush = new SolidColorBrush(Colors.Black);
+                lblValidationQualification.Foreground = new SolidColorBrush(Colors.Black);
+                isValidQualification = true;
+            }
+            IsRegistrationUserWorkerEnabled();
+        }
+
+        private void txtEmail_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            if (txtEmail.Focus())
+            {
+                lblValidationEmail.Visibility = Visibility.Visible;
+                lblValidationEmail.FontSize = 16;
+                lblValidationEmail.Foreground = new SolidColorBrush(Colors.Red);
+                lblValidationEmail.Content = "The email is not in valid form!";
+            }
+
+            string patternEmail = @"^([a-zA-Z0-9_\-\\.]+)@([a-zA-Z0-9_\-\\.]+)\.([a-zA-Z]{2,5})$";
+            Match match = Regex.Match(txtEmail.Text, patternEmail, RegexOptions.IgnoreCase);
+
+            if (!match.Success)
+            {
+                txtEmail.BorderBrush = new SolidColorBrush(Colors.Red);
+                txtEmail.Foreground = new SolidColorBrush(Colors.Red);
+                isValidEmail = false;
+            }
+            else
+            {
+                lblValidationEmail.Visibility = Visibility.Hidden;
+                txtEmail.BorderBrush = new SolidColorBrush(Colors.Black);
+                txtEmail.Foreground = new SolidColorBrush(Colors.Black);
+                isValidEmail = true;
+            }
+            IsRegistrationUserMenagerEnabled();
+        }
+
+        private void txtBackupPassword_PasswordChanged(object sender, RoutedEventArgs e)
+        {
+            if (txtBackupPassword.Focus())
+            {
+                lblValidationBackupPassword.Visibility = Visibility.Visible;
+                lblValidationBackupPassword.FontSize = 16;
+                lblValidationBackupPassword.Foreground = new SolidColorBrush(Colors.Red);
+                lblValidationBackupPassword.Content = "The password must contains at least:\nMinimum length 5 characters!";
+            }
+
+            string patternPassword = @"^[A-Za-z0-9\d@$!%*#?&]{5,}$";
+            Match match = Regex.Match(txtBackupPassword.Password, patternPassword, RegexOptions.IgnoreCase);
+
+            if (!match.Success)
+            {
+                txtBackupPassword.BorderBrush = new SolidColorBrush(Colors.Red);
+                txtBackupPassword.Foreground = new SolidColorBrush(Colors.Red);
+                isValidBackupPassword = false;
+            }
+            else
+            {
+                lblValidationBackupPassword.Visibility = Visibility.Hidden;
+                txtBackupPassword.BorderBrush = new SolidColorBrush(Colors.Black);
+                txtBackupPassword.Foreground = new SolidColorBrush(Colors.Black);
+                isValidBackupPassword = true;
+            }
+            IsRegistrationUserMenagerEnabled();
+        }
+
+        private void txtNumberOfOffice_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            if (txtNumberOfOffice.Focus())
+            {
+                lblValidationNumberOfOfice.Visibility = Visibility.Visible;
+                lblValidationNumberOfOfice.FontSize = 16;
+                lblValidationNumberOfOfice.Foreground = new SolidColorBrush(Colors.Red);
+                lblValidationNumberOfOfice.Content = "The have to input \nnumber of office(1-999)!";
+            }
+
+            string patternYearsOfService = @"^([0-9]{1,3})$";
+            Match match = Regex.Match(txtNumberOfOffice.Text, patternYearsOfService, RegexOptions.IgnoreCase);
+
+            bool isValidYears = int.TryParse(txtNumberOfOffice.Text, out int value);
+
+            if (!match.Success || value < 0)
+            {
+                txtNumberOfOffice.BorderBrush = new SolidColorBrush(Colors.Red);
+                txtNumberOfOffice.Foreground = new SolidColorBrush(Colors.Red);
+                isValidNumberOfOfice = false;
+            }
+            else
+            {
+                lblValidationNumberOfOfice.Visibility = Visibility.Hidden;
+                txtNumberOfOffice.BorderBrush = new SolidColorBrush(Colors.Black);
+                txtNumberOfOffice.Foreground = new SolidColorBrush(Colors.Black);
+                isValidNumberOfOfice = true;
+            }
+            IsRegistrationUserMenagerEnabled();
         }
     }
 }

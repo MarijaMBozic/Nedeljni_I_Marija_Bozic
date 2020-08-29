@@ -105,7 +105,7 @@ create table tblCompanyMenager(
    FOREIGN KEY (CompanyUserId) REFERENCES tblCompanyUser(CompanyUserId),  
    Email                 nvarchar(100) unique   not null,
    BackupPassword        nvarchar(max)          not null,
-   LevelOfResponsibilityId    int               not null,
+   LevelOfResponsibilityId    int               ,
    FOREIGN KEY (LevelOfResponsibilityId) REFERENCES tblLevelOfResponsibility(LevelOfResponsibilityId), 
    NumOfSuccessfulProjects    int,
    Salary                money,

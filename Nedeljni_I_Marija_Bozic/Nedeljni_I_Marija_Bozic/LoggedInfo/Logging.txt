@@ -40,3 +40,5 @@ ClientConnectionId:6a20481a-21bd-4c94-b2d2-c6e417fbc087
 Error Number:547,State:0,Class:16] 
 [29/08/2020 13:16:27][RegistrationWorker][Info][Succesfull registrate new worker] 
 [29/08/2020 13:17:00][RegistrationWorker][Info][Succesfull registrate new worker] 
+[29/08/2020 16:21:55][RegistrationWorker][Info][Succesfull registrate new worker] 
+[29/08/2020 16:29:01][RegistrationMenager][Info][Succesfull registrate new menager] 
