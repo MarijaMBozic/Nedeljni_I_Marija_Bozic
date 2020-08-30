@@ -388,10 +388,9 @@ namespace Nedeljni_I_Marija_Bozic.ViewModels
         public bool CheckAccessCode(string inputText)
         {
             try
-            {
-                if(count>0)
-                {
-                    count--;
+            {                
+                if (count>0)
+                {                    
                     if (ValidateRandomAccessCode.IsVaslidAccesCode(inputText))
                     {
                         MessageBox.Show("The code is valid.You can continue with the registration of the manager's account");
@@ -402,6 +401,7 @@ namespace Nedeljni_I_Marija_Bozic.ViewModels
                     { 
                         if(count>0)
                         {
+                            count--;
                             MessageBox.Show(string.Format("The code is not valid.You can try {0} more times", count));
                         }                        
                     }                 
