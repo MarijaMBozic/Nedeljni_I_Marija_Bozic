@@ -93,14 +93,14 @@ AS
 	where Username=@Username and Password=@Password
 GO
 
-CREATE or alter PROCEDURE Login_User
+CREATE PROCEDURE Login_User
 @Username nvarchar(100), @Password nvarchar(max)
 AS
 	select CompanyUserId, FirstName, LastName, Username, RoleId from tblCompanyUser
 	where Username=@Username and Password=@Password
 GO
 
-CREATE or alter PROCEDURE Login_UserBackupPass
+CREATE  PROCEDURE Login_UserBackupPass
 @Username nvarchar(100), @Password nvarchar(max)
 AS
 	select tblCompanyUser.CompanyUserId, FirstName, LastName, Username, RoleId from tblCompanyUser
@@ -130,7 +130,7 @@ AS
 	select SCOPE_IDENTITY()
 GO
 
-CREATE or alter  PROCEDURE Insert_Menager
+CREATE  PROCEDURE Insert_Menager
     @CompanyUserId int,  
     @Email nvarchar(100),
 	@BackupPassword nvarchar(max),
@@ -142,7 +142,7 @@ AS
 	select SCOPE_IDENTITY()
 GO
 
-CREATE or alter  PROCEDURE Insert_Worker
+CREATE   PROCEDURE Insert_Worker
     @CompanyUserId int,  
     @ManagerId int,
 	@SectorId int  ,
@@ -165,12 +165,12 @@ AS
 	end
 GO
 
-CREATE or alter PROCEDURE Get_AllMenagersId
+CREATE  PROCEDURE Get_AllMenagersId
 AS
 	select  CompanyMenagerId from tblCompanyMenager
 GO
 
-CREATE or alter PROCEDURE Get_MenagerByUserId
+CREATE  PROCEDURE Get_MenagerByUserId
 @CompanyUserId int
 AS
 	select tblCompanyUser.CompanyUserId, FirstName, LastName, JMBG, tblGender.Name, Address, 
@@ -184,7 +184,7 @@ AS
 	where tblCompanyUser.CompanyUserId=@CompanyUserId and RoleId=1
 GO
 
-CREATE or alter PROCEDURE Get_WorkerByUserId
+CREATE  PROCEDURE Get_WorkerByUserId
 @CompanyUserId int
 AS
 	select tblCompanyUser.CompanyUserId, FirstName, LastName, JMBG, tblGender.Name, Address, 
@@ -200,7 +200,7 @@ AS
 	where tblCompanyUser.CompanyUserId=@CompanyUserId and RoleId=3
 GO
 
-CREATE or alter PROCEDURE Get_AllWorkersByMenagerId
+CREATE  PROCEDURE Get_AllWorkersByMenagerId
 @MenagerId int
 AS
 	select tblCompanyUser.CompanyUserId, FirstName, LastName, JMBG, tblGender.Name, Address, 
@@ -216,7 +216,48 @@ AS
 	where tblCompanyWorker.ManagerId=@MenagerId 
 GO
 
-CREATE or alter PROCEDURE Get_AdminByUserId
+CREATE  PROCEDURE Get_AllWorkers
+AS
+	select tblCompanyUser.CompanyUserId, FirstName, LastName, JMBG, tblGender.Name, Address, 
+	tblMaritalStatus.Name, Username, tblSector.Name, tblPosition.Name, YearsOfService,
+	tblQualifications.Name
+	from tblCompanyUser
+	left join tblCompanyWorker on   tblCompanyUser.CompanyUserId=tblCompanyWorker.CompanyUserId
+	left join tblGender on tblCompanyUser.GenderId=tblGender.GenderId
+	left join tblMaritalStatus on tblCompanyUser.MaritalStatusId=tblMaritalStatus.MaritalStatusId
+	left join tblSector on tblCompanyWorker.SectorId=tblSector.SectorId
+	left join tblPosition on tblCompanyWorker.PositionId=tblPosition.PositionId
+	left join tblQualifications on tblCompanyWorker.QualificationsId=tblQualifications.QualificationsId
+	where RoleId=3
+GO
+
+CREATE  PROCEDURE Get_AllMenagerWithoutLevelOfResponsibility
+AS
+	select tblCompanyUser.CompanyUserId, FirstName, LastName, JMBG, tblGender.Name, Address, 
+	tblMaritalStatus.Name, Username, 
+	tblCompanyMenager.Email, tblCompanyMenager.LevelOfResponsibilityId, 
+	tblCompanyMenager.NumOfSuccessfulProjects, tblCompanyMenager.NumberOfOffice,  CompanyMenagerId
+	from tblCompanyUser
+	left join tblCompanyMenager on   tblCompanyUser.CompanyUserId=tblCompanyMenager.CompanyUserId
+	left join tblGender on tblCompanyUser.GenderId=tblGender.GenderId
+	left join tblMaritalStatus on tblCompanyUser.MaritalStatusId=tblMaritalStatus.MaritalStatusId
+	where  RoleId=1 and LevelOfResponsibilityId is null
+GO
+
+CREATE  PROCEDURE Get_AllMenagerList
+AS
+	select tblCompanyUser.CompanyUserId, FirstName, LastName, JMBG, tblGender.Name, Address, 
+	tblMaritalStatus.Name, Username, 
+	tblCompanyMenager.Email, tblCompanyMenager.LevelOfResponsibilityId, 
+	tblCompanyMenager.NumOfSuccessfulProjects, tblCompanyMenager.NumberOfOffice,  CompanyMenagerId
+	from tblCompanyUser
+	left join tblCompanyMenager on   tblCompanyUser.CompanyUserId=tblCompanyMenager.CompanyUserId
+	left join tblGender on tblCompanyUser.GenderId=tblGender.GenderId
+	left join tblMaritalStatus on tblCompanyUser.MaritalStatusId=tblMaritalStatus.MaritalStatusId
+	where  RoleId=1
+GO
+
+CREATE PROCEDURE Get_AdminByUserId
 @CompanyUserId int
 AS
 	select tblCompanyUser.CompanyUserId, FirstName, LastName, JMBG, tblGender.Name, Address, 
@@ -232,7 +273,7 @@ AS
 GO
 
 
-CREATE or alter PROCEDURE Insert_Sector
+CREATE PROCEDURE Insert_Sector
     @Name  nvarchar(100),
 	@Description nvarchar(400)
 AS
@@ -241,11 +282,20 @@ AS
 	select SCOPE_IDENTITY()
 GO
 
-CREATE or alter  PROCEDURE Insert_Position
+CREATE PROCEDURE Insert_Position
     @Name  nvarchar(100),
 	@Description nvarchar(400)
 AS
 	insert into tblPosition(Name, Description) 
 	Values(@Name, @Description)
 	select SCOPE_IDENTITY()
+GO
+
+CREATE PROCEDURE Update_LevelOfResponsibility
+    @LevelId nvarchar(100),
+	@MenagerId nvarchar(400)
+AS
+	update tblCompanyMenager
+	set LevelOfResponsibilityId=@LevelId
+	where CompanyMenagerId=@MenagerId
 GO

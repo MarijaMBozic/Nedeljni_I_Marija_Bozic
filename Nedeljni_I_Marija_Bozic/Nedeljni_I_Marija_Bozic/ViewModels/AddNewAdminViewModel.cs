@@ -172,9 +172,9 @@ namespace Nedeljni_I_Marija_Bozic.ViewModels
                     MessageBoxResult result=MessageBox.Show("Are you sure you want to save the new Administrator", "Add New Admin", MessageBoxButton.YesNo);
                     if(result == MessageBoxResult.Yes)
                     {
-                        bool uniqueUserClinic = service.CheckUsernameUser(User.Username);
+                        bool uniqueUser = service.CheckUsernameUser(User.Username);
                         bool uniqueUserMaster = service.CheckUsernameMasterUser(User.Username);
-                        if (!uniqueUserClinic && !uniqueUserMaster)
+                        if (!uniqueUser && !uniqueUserMaster)
                         {
                             int userId = service.AddCompanyUser(User);
                             if (userId != 0)

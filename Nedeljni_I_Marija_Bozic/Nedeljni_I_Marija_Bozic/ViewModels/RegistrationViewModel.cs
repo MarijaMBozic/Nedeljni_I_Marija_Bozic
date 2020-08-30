@@ -30,9 +30,8 @@ namespace Nedeljni_I_Marija_Bozic.ViewModels
             MaritalStatusList = new ObservableCollection<MaritalStatus>(service.GettAllMaritalStatus());
             SectorList = new ObservableCollection<Sector>(service.GettAllSectors(out sector));
             PositionList = new ObservableCollection<Position>(service.GettAllPositions());
-            QualificationList = new ObservableCollection<Qualifications>(service.GettAllQualificationLevels());
-            //LevelOfResponsibilityList = new ObservableCollection<LevelOfResponsibility>(service.GettAllLevelsOfResponsibility());
-            ManagerList = new ObservableCollection<Menager>(service.GetAllMenagers());
+            QualificationList = new ObservableCollection<Qualifications>(service.GettAllQualificationLevels());           
+            ManagerList = new ObservableCollection<Menager>(service.GetAllMenagersList());
         }
         #endregion
         #region Property
@@ -106,7 +105,6 @@ namespace Nedeljni_I_Marija_Bozic.ViewModels
                 OnPropertyChanged("Sector");
             }
         }
-
 
         private ObservableCollection<Gender> genderList;
         public ObservableCollection<Gender> GenderList
@@ -303,35 +301,6 @@ namespace Nedeljni_I_Marija_Bozic.ViewModels
                 OnPropertyChanged("ManagerList");
             }
         }
-
-
-        //private ObservableCollection<LevelOfResponsibility> levelOfResponsibilityList;
-        //public ObservableCollection<LevelOfResponsibility> LevelOfResponsibilityList
-        //{
-        //    get
-        //    {
-        //        return levelOfResponsibilityList;
-        //    }
-        //    set
-        //    {
-        //        levelOfResponsibilityList = value;
-        //        OnPropertyChanged("LevelOfResponsibilityList");
-        //    }
-        //}
-
-        //private LevelOfResponsibility selectedLevelOfResponsibility;
-        //public LevelOfResponsibility SelectedLevelOfResponsibility
-        //{
-        //    get
-        //    {
-        //        return selectedLevelOfResponsibility;
-        //    }
-        //    set
-        //    {
-        //        selectedLevelOfResponsibility = value;
-        //        OnPropertyChanged("SelectedLevelOfResponsibility");
-        //    }
-        //}
         #endregion
         #region Commands
 
@@ -392,7 +361,6 @@ namespace Nedeljni_I_Marija_Bozic.ViewModels
                                         registrationView.Close();
                                     }
                                 }
-
                             }
                         }
                         else if (uniqueUserName)
@@ -405,7 +373,7 @@ namespace Nedeljni_I_Marija_Bozic.ViewModels
                         }
                         else if (uniqueEmail)
                         {
-                            MessageBox.Show("JMBG is not unique!");
+                            MessageBox.Show("Email is not unique!");
                         }
                     }
                 }

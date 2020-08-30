@@ -1,0 +1,1 @@
+Za uspesno pokretanje aplikacije potrebno je izvrsiti skripe Create_Table i StoreProcedures

@@ -718,6 +718,216 @@ namespace Nedeljni_I_Marija_Bozic.Service
                 }
             }
         }
+        
+        public List<Worker> GetAllWorkers()
+        {
+            List<Worker> workerList = new List<Worker>();
+            using (SqlConnection conn = ConnectionHelper.GetNewConnection())
+            {
+                conn.Open();
+                try
+                {
+                    using (SqlCommand cmd = conn.CreateCommand())
+                    {
+                        string positionName;
+                        cmd.CommandText = "Get_AllWorkers";
+                        cmd.CommandType = CommandType.StoredProcedure;
+                        SqlDataReader rdr = cmd.ExecuteReader();
+                        while (rdr.Read())
+                        {
+                            if (rdr.IsDBNull(9))
+                            {
+                                positionName = "";
+                            }
+                            else
+                            {
+                                positionName = rdr[9].ToString();
+                            }
+
+                            Worker r = new Worker
+                            {
+                                UserId = int.Parse(rdr[0].ToString()),
+                                FirstName = rdr[1].ToString(),
+                                LastName = rdr[2].ToString(),
+                                Jmbg = long.Parse(rdr[3].ToString()),
+                                GenderName = rdr[4].ToString(),
+                                Address = rdr[5].ToString(),
+                                MaritalStatusName = rdr[6].ToString(),
+                                Username = rdr[7].ToString(),
+                                SectorName = rdr[8].ToString(),
+                                PositionName = positionName,
+                                YearsOfService = int.Parse(rdr[10].ToString()),
+                                QualificationName = rdr[11].ToString(),
+
+                            };
+                            workerList.Add(r);
+                        }
+                        return workerList;
+                    }
+                }
+                catch (Exception ex)
+                {
+                    System.Diagnostics.Debug.WriteLine("Exeption" + ex.Message.ToString());
+                    return null;
+                }
+                finally
+                {
+                    conn.Close();
+                }
+            }
+        }
+        
+        public List<Menager> GetAllMenagersList()
+        {
+            List<Menager> menagerList = new List<Menager>();
+            using (SqlConnection conn = ConnectionHelper.GetNewConnection())
+            {
+                conn.Open();
+                try
+                {
+                    using (SqlCommand cmd = conn.CreateCommand())
+                    {
+                        int levelResp;
+                        cmd.CommandText = "Get_AllMenagerList";
+                        cmd.CommandType = CommandType.StoredProcedure;
+
+                        SqlDataAdapter adapter = new SqlDataAdapter();
+                        adapter.SelectCommand = cmd;
+                        DataTable dt = new DataTable();
+                        adapter.Fill(dt);
+                        foreach (DataRow row in dt.Rows)
+                        {
+                            if (row[9].ToString() == string.Empty)
+                            {
+                                levelResp = 4;
+                            }
+                            else
+                            {
+                                levelResp = int.Parse(row[9].ToString());
+                            }
+                            Menager r = new Menager
+                            {
+                                UserId = int.Parse(row[0].ToString()),
+                                FirstName = row[1].ToString(),
+                                LastName = row[2].ToString(),
+                                Jmbg = long.Parse(row[3].ToString()),
+                                GenderName = row[4].ToString(),
+                                Address = row[5].ToString(),
+                                MaritalStatusName = row[6].ToString(),
+                                Username = row[7].ToString(),
+                                Email = row[8].ToString(),
+                                LevelOfResponsibility = levelResp,
+                                NumOfSuccessfulProjects = int.Parse(row[10].ToString()),
+                                NumberOfOffice = int.Parse(row[11].ToString()),
+                                ManagerId = int.Parse(row[12].ToString())
+                            };
+                            menagerList.Add(r);
+                        }
+                        return menagerList;
+                    }
+                }
+                catch (Exception ex)
+                {
+                    System.Diagnostics.Debug.WriteLine("Exeption" + ex.Message.ToString());
+                    return null;
+                }
+                finally
+                {
+                    conn.Close();
+                }
+            }
+        }
+
+        public List<Menager> GetAllMenagersWithoutLevelOfResponsibility()
+        {
+            List<Menager> menagerList = new List<Menager>();
+            using (SqlConnection conn = ConnectionHelper.GetNewConnection())
+            {
+                conn.Open();
+                try
+                {
+                    using (SqlCommand cmd = conn.CreateCommand())
+                    {
+                        int levelResp;
+                        cmd.CommandText = "Get_AllMenagerWithoutLevelOfResponsibility";
+                        cmd.CommandType = CommandType.StoredProcedure;
+
+                        SqlDataAdapter adapter = new SqlDataAdapter();
+                        adapter.SelectCommand = cmd;
+                        DataTable dt = new DataTable();
+                        adapter.Fill(dt);
+                        foreach (DataRow row in dt.Rows)
+                        {
+                            if (row[9].ToString() == string.Empty)
+                            {
+                                levelResp = 4;
+                            }
+                            else
+                            {
+                                levelResp = int.Parse(row[9].ToString());
+                            }
+                            Menager r = new Menager
+                            {
+                                UserId = int.Parse(row[0].ToString()),
+                                FirstName = row[1].ToString(),
+                                LastName = row[2].ToString(),
+                                Jmbg = long.Parse(row[3].ToString()),
+                                GenderName = row[4].ToString(),
+                                Address = row[5].ToString(),
+                                MaritalStatusName = row[6].ToString(),
+                                Username = row[7].ToString(),
+                                Email = row[8].ToString(),
+                                LevelOfResponsibility = levelResp,
+                                NumOfSuccessfulProjects = int.Parse(row[10].ToString()),
+                                NumberOfOffice = int.Parse(row[11].ToString()),
+                                ManagerId = int.Parse(row[12].ToString())
+                            };
+                            menagerList.Add(r);
+                        }
+                        return menagerList;
+                    }
+                }
+                catch (Exception ex)
+                {
+                    System.Diagnostics.Debug.WriteLine("Exeption" + ex.Message.ToString());
+                    return null;
+                }
+                finally
+                {
+                    conn.Close();
+                }
+            }
+        }
+
+        public bool UpdateMenager(Menager menager)
+        {
+            using (SqlConnection conn = ConnectionHelper.GetNewConnection())
+            {
+                conn.Open();
+                try
+                {
+                    using (SqlCommand cmd = conn.CreateCommand())
+                    {
+                        cmd.CommandText = "Update_LevelOfResponsibility";
+                        cmd.CommandType = CommandType.StoredProcedure;
+                        cmd.Parameters.AddWithValue("@LevelId", menager.LevelOfResponsibility);
+                        cmd.Parameters.AddWithValue("@MenagerId", menager.ManagerId);
+                        SqlDataReader reader = cmd.ExecuteReader();
+                        return true;
+                    }
+                }
+                catch (Exception ex)
+                {
+                    System.Diagnostics.Debug.WriteLine("Exeption" + ex.Message.ToString());
+                    Logging.LoggAction("AddNewUser", "Error", ex.ToString());
+                    return false;
+                }
+                finally
+                {
+                    conn.Close();
+                }
+            }
+        }
 
         public int AddCompanyUser(User user)
         {

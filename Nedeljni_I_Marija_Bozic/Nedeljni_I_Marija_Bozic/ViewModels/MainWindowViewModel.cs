@@ -110,7 +110,7 @@ namespace Nedeljni_I_Marija_Bozic.ViewModels
                 else if(service.LoginManagerBackUpPass(username, password) != null)
                 {
                     Menager menager = service.GetMenagerByUserId(ServiceCode.CurrentUser.UserId);
-                    if (menager.LevelOfResponsibility == 3)
+                    if (menager.LevelOfResponsibility == 4)
                     {
                         MessageBox.Show("Your account is not yet available.\nWait for the admin to assign you \na level of responsibility ");
                     }

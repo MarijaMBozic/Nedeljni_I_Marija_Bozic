@@ -1,4 +1,5 @@
-﻿using Nedeljni_I_Marija_Bozic.ViewModels;
+﻿using Nedeljni_I_Marija_Bozic.Models;
+using Nedeljni_I_Marija_Bozic.ViewModels;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -44,6 +45,24 @@ namespace Nedeljni_I_Marija_Bozic.Views
             SectorView sector = new SectorView();
             sector.Show();
 
+        }
+
+        private void btnWorkers_Click(object sender, RoutedEventArgs e)
+        {
+            WorkerList workerList = new WorkerList();
+            workerList.Show();
+        }
+
+        private void btnAllMenagers_Click(object sender, RoutedEventArgs e)
+        {
+            MenagerListView menager = new MenagerListView();
+            menager.Show();
+        }
+
+        private void btnLevelOfresponsibiliti_Click(object sender, RoutedEventArgs e)
+        {
+            AddNewMenagerLevelOfResponsibility levelView = new AddNewMenagerLevelOfResponsibility();
+            levelView.Show();
         }
     }
 }

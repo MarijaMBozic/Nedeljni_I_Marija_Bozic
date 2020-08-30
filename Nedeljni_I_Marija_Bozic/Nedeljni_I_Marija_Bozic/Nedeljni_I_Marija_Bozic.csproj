@@ -76,6 +76,7 @@
     </ApplicationDefinition>
     <Compile Include="Converters\BoolToVisibilityConverter.cs" />
     <Compile Include="Converters\BoolToVisibilityInverseConverter.cs" />
+    <Compile Include="Converters\IntToStringConverter.cs" />
     <Compile Include="Converters\LocalTeamAdminVisibilityConverter.cs" />
     <Compile Include="Converters\SystemAdminVisibilityConverter.cs" />
     <Compile Include="Converters\LocalAdminVisibilityConverter.cs" />
@@ -105,18 +106,25 @@
     <Compile Include="Models\Worker.cs" />
     <Compile Include="Service\ServiceCode.cs" />
     <Compile Include="ViewModels\AddNewAdminViewModel.cs" />
+    <Compile Include="ViewModels\AddNewLevelOfResponsibilitiViewMOdel.cs" />
     <Compile Include="ViewModels\AddNewPositionViewModel.cs" />
     <Compile Include="ViewModels\AddNewSectorViewModel.cs" />
     <Compile Include="ViewModels\AdminViewModel.cs" />
     <Compile Include="ViewModels\MainWindowViewModel.cs" />
+    <Compile Include="ViewModels\MenagerListViewModel.cs" />
     <Compile Include="ViewModels\MenagerViewModel.cs" />
     <Compile Include="ViewModels\ProjectViewModel.cs" />
     <Compile Include="ViewModels\RegistrationViewModel.cs" />
     <Compile Include="ViewModels\SectorViewModel.cs" />
+    <Compile Include="ViewModels\SelectLevelViewModel.cs" />
     <Compile Include="ViewModels\ViewModelBase.cs" />
+    <Compile Include="ViewModels\WorkerListViewModel.cs" />
     <Compile Include="ViewModels\WorkerViewModel.cs" />
     <Compile Include="Views\AddNewAdmin.xaml.cs">
       <DependentUpon>AddNewAdmin.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\AddNewMenagerLevelOfResponsibility.xaml.cs">
+      <DependentUpon>AddNewMenagerLevelOfResponsibility.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\AddNewProsition.xaml.cs">
       <DependentUpon>AddNewProsition.xaml</DependentUpon>
@@ -139,6 +147,9 @@
     <Compile Include="Views\MasterAdminView.xaml.cs">
       <DependentUpon>MasterAdminView.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Views\MenagerListView.xaml.cs">
+      <DependentUpon>MenagerListView.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\ProjectView.xaml.cs">
       <DependentUpon>ProjectView.xaml</DependentUpon>
     </Compile>
@@ -147,6 +158,12 @@
     </Compile>
     <Compile Include="Views\SectorView.xaml.cs">
       <DependentUpon>SectorView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\SelectLevelView.xaml.cs">
+      <DependentUpon>SelectLevelView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\WorkerList.xaml.cs">
+      <DependentUpon>WorkerList.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\WorkerView.xaml.cs">
       <DependentUpon>WorkerView.xaml</DependentUpon>
@@ -166,6 +183,10 @@
       <SubType>Code</SubType>
     </Compile>
     <Page Include="Views\AddNewAdmin.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\AddNewMenagerLevelOfResponsibility.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -197,6 +218,10 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="Views\MenagerListView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Views\ProjectView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -206,6 +231,14 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\SectorView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\SelectLevelView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\WorkerList.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
