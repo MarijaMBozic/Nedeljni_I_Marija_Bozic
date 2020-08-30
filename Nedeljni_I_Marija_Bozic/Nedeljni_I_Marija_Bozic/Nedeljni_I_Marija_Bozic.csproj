@@ -101,6 +101,8 @@
     <Compile Include="Models\Worker.cs" />
     <Compile Include="Service\ServiceCode.cs" />
     <Compile Include="ViewModels\AddNewAdminViewModel.cs" />
+    <Compile Include="ViewModels\AddNewPositionViewModel.cs" />
+    <Compile Include="ViewModels\AddNewSectorViewModel.cs" />
     <Compile Include="ViewModels\AdminViewModel.cs" />
     <Compile Include="ViewModels\MainWindowViewModel.cs" />
     <Compile Include="ViewModels\MenagerViewModel.cs" />
@@ -110,6 +112,12 @@
     <Compile Include="ViewModels\WorkerViewModel.cs" />
     <Compile Include="Views\AddNewAdmin.xaml.cs">
       <DependentUpon>AddNewAdmin.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\AddNewProsition.xaml.cs">
+      <DependentUpon>AddNewProsition.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\AddNewSector.xaml.cs">
+      <DependentUpon>AddNewSector.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\AdminView.xaml.cs">
       <DependentUpon>AdminView.xaml</DependentUpon>
@@ -150,6 +158,14 @@
       <SubType>Code</SubType>
     </Compile>
     <Page Include="Views\AddNewAdmin.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\AddNewProsition.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\AddNewSector.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

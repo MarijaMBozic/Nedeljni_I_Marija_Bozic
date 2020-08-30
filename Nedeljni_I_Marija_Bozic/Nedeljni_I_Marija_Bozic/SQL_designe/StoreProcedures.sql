@@ -72,6 +72,20 @@ AS
 	where Email=@Email
 GO
 
+CREATE PROCEDURE Check_UniquePositionName
+@Name nvarchar(100)
+AS
+	select Name  from tblPosition
+	where Name=@Name
+GO
+
+CREATE PROCEDURE Check_UniqueSectorName
+@Name nvarchar(100)
+AS
+	select Name  from tblSector
+	where Name=@Name
+GO
+
 CREATE PROCEDURE Login_MasterUser
 @Username nvarchar(100), @Password nvarchar(max)
 AS
@@ -218,5 +232,20 @@ AS
 GO
 
 
+CREATE or alter PROCEDURE Insert_Sector
+    @Name  nvarchar(100),
+	@Description nvarchar(400)
+AS
+	insert into tblSector(Name, Description) 
+	Values(@Name, @Description)
+	select SCOPE_IDENTITY()
+GO
 
-
+CREATE or alter  PROCEDURE Insert_Position
+    @Name  nvarchar(100),
+	@Description nvarchar(400)
+AS
+	insert into tblPosition(Name, Description) 
+	Values(@Name, @Description)
+	select SCOPE_IDENTITY()
+GO

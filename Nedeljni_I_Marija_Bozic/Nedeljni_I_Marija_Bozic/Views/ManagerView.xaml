@@ -67,7 +67,7 @@
         <Button Grid.Column="1" Grid.Row="7" Grid.ColumnSpan="3" Margin="0,0,5,0" Name="btnRequests" Content="Requests" Width="130" Height="20"
               FontWeight="Bold" HorizontalAlignment="Left" Visibility="{Binding Info, Converter={StaticResource BoolToVisibilityConverter}}"/>
         <Button Grid.Column="4" Grid.Row="7" Grid.ColumnSpan="5" Margin="0,0,5,0" Name="btnAddNewposition" Content="Add new position" Width="130" Height="20"
-              FontWeight="Bold" HorizontalAlignment="Left" Visibility="{Binding Menager.LevelOfResponsibility, Converter={StaticResource Level2VisibilityConverter}}"/>
+              FontWeight="Bold" HorizontalAlignment="Left" Visibility="{Binding Menager.LevelOfResponsibility, Converter={StaticResource Level2VisibilityConverter}}" Click="btnAddNewposition_Click"/>
         <Button Grid.Column="12" Grid.Row="5" Grid.ColumnSpan="4" Margin="0,0,5,0" Name="btnAddNewProject" Content="Add new project" Width="130" Height="20"
               FontWeight="Bold" HorizontalAlignment="Left" Visibility="{Binding Menager.LevelOfResponsibility, Converter={StaticResource Level3VisibilityConverter}}"/>
         <Button Grid.Column="10" Grid.Row="7" Grid.ColumnSpan="5" Margin="70,0,5,0" Name="btnAddNewWorkers" Content="Add new workers to project" Width="160" Height="20"

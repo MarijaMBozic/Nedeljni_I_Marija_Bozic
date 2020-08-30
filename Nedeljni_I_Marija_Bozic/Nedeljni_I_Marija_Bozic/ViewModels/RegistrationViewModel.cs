@@ -28,7 +28,7 @@ namespace Nedeljni_I_Marija_Bozic.ViewModels
             registrationView = registrationViewOpen;
             GenderList = new ObservableCollection<Gender>(service.GettAllGender());
             MaritalStatusList = new ObservableCollection<MaritalStatus>(service.GettAllMaritalStatus());
-            SectorList = new ObservableCollection<Sector>(service.GettAllSectors());
+            SectorList = new ObservableCollection<Sector>(service.GettAllSectors(out sector));
             PositionList = new ObservableCollection<Position>(service.GettAllPositions());
             QualificationList = new ObservableCollection<Qualifications>(service.GettAllQualificationLevels());
             //LevelOfResponsibilityList = new ObservableCollection<LevelOfResponsibility>(service.GettAllLevelsOfResponsibility());
@@ -92,6 +92,21 @@ namespace Nedeljni_I_Marija_Bozic.ViewModels
                 OnPropertyChanged("ManagerRegistry");
             }
         }
+
+        private Sector sector;
+        public Sector Sector
+        {
+            get
+            {
+                return sector;
+            }
+            set
+            {
+                sector = value;
+                OnPropertyChanged("Sector");
+            }
+        }
+
 
         private ObservableCollection<Gender> genderList;
         public ObservableCollection<Gender> GenderList

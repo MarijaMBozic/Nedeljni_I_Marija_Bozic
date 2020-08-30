@@ -217,7 +217,8 @@ values('0'),
       ('2')
 
 insert into tblSector(Name)
-values('Sales'),
+values('Default'),
+	  ('Sales'),
 	  ('Logistic'),
       ('HR')
 

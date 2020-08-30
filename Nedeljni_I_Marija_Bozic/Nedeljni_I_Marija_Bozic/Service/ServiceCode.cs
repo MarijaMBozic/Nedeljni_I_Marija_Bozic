@@ -362,8 +362,9 @@ namespace Nedeljni_I_Marija_Bozic.Service
                 }
             }
         }
-        public List<Sector> GettAllSectors()
+        public List<Sector> GettAllSectors(out Sector sector)
         {
+            Sector newSector = new Sector();            
             List<Sector> sectorList = new List<Sector>();
             using (SqlConnection conn = ConnectionHelper.GetNewConnection())
             {
@@ -386,14 +387,24 @@ namespace Nedeljni_I_Marija_Bozic.Service
                                 Name = row[1].ToString(),
                                 Description = row[2].ToString()
                             };
-                            sectorList.Add(r);
+                            if(r.Name!= "Default")
+                            {
+                                sectorList.Add(r);
+                            }
+                            else
+                            {
+                                newSector = r;
+                                
+                            }
                         }
+                        sector = newSector;
                         return sectorList;
                     }
                 }
                 catch (Exception ex)
                 {
                     System.Diagnostics.Debug.WriteLine("Exeption" + ex.Message.ToString());
+                    sector = null;
                     return null;
                 }
                 finally
@@ -859,6 +870,74 @@ namespace Nedeljni_I_Marija_Bozic.Service
             return user.WorkerId;
         }
 
+        public int AddSector(Sector sector)
+        {
+            using (SqlConnection conn = ConnectionHelper.GetNewConnection())
+            {
+                conn.Open();
+                try
+                {
+                    using (SqlCommand cmd = conn.CreateCommand())
+                    {
+                        cmd.CommandText = "Insert_Sector";
+                        cmd.CommandType = CommandType.StoredProcedure;
+                        cmd.Parameters.AddWithValue("@Name", sector.Name.ToUpper());
+                        cmd.Parameters.AddWithValue("@Description", sector.Description);
+                        SqlDataReader reader = cmd.ExecuteReader();
+                        if (reader.Read())
+                        {
+                            sector.SectorId = int.Parse(reader.GetValue(0).ToString());
+                        }
+                    }
+                }
+                catch (Exception ex)
+                {
+                    System.Diagnostics.Debug.WriteLine("Exeption" + ex.Message.ToString());
+                    Logging.LoggAction("Add new sector", "Error", ex.ToString());
+                    return 0;
+                }
+                finally
+                {
+                    conn.Close();
+                }
+            }
+            return sector.SectorId;
+        }
+
+        public int AddPosition(Position position)
+        {
+            using (SqlConnection conn = ConnectionHelper.GetNewConnection())
+            {
+                conn.Open();
+                try
+                {
+                    using (SqlCommand cmd = conn.CreateCommand())
+                    {
+                        cmd.CommandText = "Insert_Position";
+                        cmd.CommandType = CommandType.StoredProcedure;
+                        cmd.Parameters.AddWithValue("@Name", position.Name.ToUpper());
+                        cmd.Parameters.AddWithValue("@Description", position.Description);
+                        SqlDataReader reader = cmd.ExecuteReader();
+                        if (reader.Read())
+                        {
+                            position.PositionId = int.Parse(reader.GetValue(0).ToString());
+                        }
+                    }
+                }
+                catch (Exception ex)
+                {
+                    System.Diagnostics.Debug.WriteLine("Exeption" + ex.Message.ToString());
+                    Logging.LoggAction("Add new sector", "Error", ex.ToString());
+                    return 0;
+                }
+                finally
+                {
+                    conn.Close();
+                }
+            }
+            return position.PositionId;
+        }
+
         public bool CheckUsernameUser(string userName)
         {
             bool result=false;
@@ -971,6 +1050,72 @@ namespace Nedeljni_I_Marija_Bozic.Service
                         cmd.CommandText = "Check_UniqueJmbg";
                         cmd.CommandType = CommandType.StoredProcedure;
                         cmd.Parameters.AddWithValue("@JMBG", jmbg);
+                        SqlDataReader reader = cmd.ExecuteReader();
+                        if (reader.Read())
+                        {
+                            result = true;
+                        }
+                    }
+                }
+                catch (Exception ex)
+                {
+                    System.Diagnostics.Debug.WriteLine("Exeption" + ex.Message.ToString());
+                    result = false;
+                }
+                finally
+                {
+                    conn.Close();
+                }
+            }
+            return result;
+        }
+
+        public bool CheckPositionName(string name)
+        {
+            bool result = false;
+            using (SqlConnection conn = ConnectionHelper.GetNewConnection())
+            {
+                conn.Open();
+                try
+                {
+                    using (SqlCommand cmd = conn.CreateCommand())
+                    {
+                        cmd.CommandText = "Check_UniquePositionName";
+                        cmd.CommandType = CommandType.StoredProcedure;
+                        cmd.Parameters.AddWithValue("@Name", name.ToUpper());
+                        SqlDataReader reader = cmd.ExecuteReader();
+                        if (reader.Read())
+                        {
+                            result = true;
+                        }
+                    }
+                }
+                catch (Exception ex)
+                {
+                    System.Diagnostics.Debug.WriteLine("Exeption" + ex.Message.ToString());
+                    result = false;
+                }
+                finally
+                {
+                    conn.Close();
+                }
+            }
+            return result;
+        }
+
+        public bool CheckSectorName(string name)
+        {
+            bool result = false;
+            using (SqlConnection conn = ConnectionHelper.GetNewConnection())
+            {
+                conn.Open();
+                try
+                {
+                    using (SqlCommand cmd = conn.CreateCommand())
+                    {
+                        cmd.CommandText = "Check_UniqueSectorName";
+                        cmd.CommandType = CommandType.StoredProcedure;
+                        cmd.Parameters.AddWithValue("@Name", name.ToUpper());
                         SqlDataReader reader = cmd.ExecuteReader();
                         if (reader.Read())
                         {
