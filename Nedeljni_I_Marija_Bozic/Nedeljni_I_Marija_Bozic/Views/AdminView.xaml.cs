@@ -25,5 +25,25 @@ namespace Nedeljni_I_Marija_Bozic.Views
             InitializeComponent();
             this.DataContext = new AdminViewModel(this);
         }
+
+        private void btnLogOut_Click(object sender, RoutedEventArgs e)
+        {
+            MainWindow mainWindow = new MainWindow();
+            mainWindow.Show();
+            Close();
+        }
+
+        private void btnPosition_Click(object sender, RoutedEventArgs e)
+        {
+            AddNewProsition addNewPosition = new AddNewProsition();
+            addNewPosition.Show();
+        }
+
+        private void btnSectors_Click(object sender, RoutedEventArgs e)
+        {
+            SectorView sector = new SectorView();
+            sector.Show();
+
+        }
     }
 }

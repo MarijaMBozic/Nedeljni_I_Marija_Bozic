@@ -62,16 +62,16 @@
         <Label Grid.Column="1" Grid.Row="1" Name="lblUser" Content="Username:" HorizontalAlignment="Right"/>
         <Label Grid.Column="3" Grid.Row="1" Name="lblUserName" Content="{Binding Admin.Username}" HorizontalAlignment="Center"/>
         <Button Grid.Column="10" Grid.Row="1" Grid.ColumnSpan="5" Margin="70,0,5,0" Name="btnLogOut" Content="Log Out" Width="160" Height="20"
-               FontWeight="Bold" HorizontalAlignment="Left"/>
+               FontWeight="Bold" HorizontalAlignment="Left" Click="btnLogOut_Click"/>
         <Button Grid.Column="1" Grid.Row="7" Grid.ColumnSpan="5" Margin="0,0,5,0" Name="btnLevelOfresponsibiliti" Content="Add new manager level of responsibiliti" Width="220" Height="20"
               FontWeight="Bold" HorizontalAlignment="Left" Visibility="{Binding Admin.AdministratorTypeName, Converter={StaticResource LocalAdminVisibilityConverter}}" />
         <Button Grid.Column="7" Grid.Row="7" Grid.ColumnSpan="5" Margin="0,0,5,0" Name="btnWorkers" Content="All workers" Width="130" Height="20"
               FontWeight="Bold" HorizontalAlignment="Left" Visibility="{Binding Admin.AdministratorTypeName, Converter={StaticResource LocalTeamAdminVisibilityConverter}}" />
         <Button Grid.Column="7" Grid.Row="10" Grid.ColumnSpan="4" Margin="0,0,5,0" Name="btnAllMenagers" Content="All menagers" Width="130" Height="20"
               FontWeight="Bold" HorizontalAlignment="Left" Visibility="{Binding Admin.AdministratorTypeName, Converter={StaticResource TeamAdminVisibilityConverter}}" />
-        <Button Grid.Column="10" Grid.Row="7" Grid.ColumnSpan="5" Margin="70,0,5,0" Name="btnSectors" Content="All sectors" Width="160" Height="20"
+        <Button Grid.Column="10" Grid.Row="7" Grid.ColumnSpan="5" Margin="70,0,5,0" Name="btnSectors" Content="All sectors" Width="160" Height="20" Click="btnSectors_Click"
               FontWeight="Bold" HorizontalAlignment="Left" Visibility="{Binding Admin.AdministratorTypeName, Converter={StaticResource SystemAdminVisibilityConverter}}" />
-        <Button Grid.Column="10" Grid.Row="10" Grid.ColumnSpan="5" Margin="70,0,5,0" Name="btnPosition" Content="Add position" Width="160" Height="20"
+        <Button Grid.Column="10" Grid.Row="10" Grid.ColumnSpan="5" Margin="70,0,5,0" Name="btnPosition" Content="Add position" Width="160" Height="20" Click="btnPosition_Click"
               FontWeight="Bold" HorizontalAlignment="Left" Visibility="{Binding Admin.AdministratorTypeName, Converter={StaticResource SystemAdminVisibilityConverter}}"/>   
 
     </Grid>

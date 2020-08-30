@@ -112,6 +112,7 @@
     <Compile Include="ViewModels\MenagerViewModel.cs" />
     <Compile Include="ViewModels\ProjectViewModel.cs" />
     <Compile Include="ViewModels\RegistrationViewModel.cs" />
+    <Compile Include="ViewModels\SectorViewModel.cs" />
     <Compile Include="ViewModels\ViewModelBase.cs" />
     <Compile Include="ViewModels\WorkerViewModel.cs" />
     <Compile Include="Views\AddNewAdmin.xaml.cs">
@@ -143,6 +144,9 @@
     </Compile>
     <Compile Include="Views\Registration.xaml.cs">
       <DependentUpon>Registration.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\SectorView.xaml.cs">
+      <DependentUpon>SectorView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\WorkerView.xaml.cs">
       <DependentUpon>WorkerView.xaml</DependentUpon>
@@ -198,6 +202,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\Registration.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\SectorView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
