@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Nedeljni_I_Marija_Bozic.ViewModels;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -22,6 +23,7 @@ namespace Nedeljni_I_Marija_Bozic.Views
         public AdminView()
         {
             InitializeComponent();
+            this.DataContext = new AdminViewModel(this);
         }
     }
 }

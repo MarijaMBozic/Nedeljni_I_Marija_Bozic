@@ -37,10 +37,8 @@ namespace Nedeljni_I_Marija_Bozic.Views
 
         private void btnAddNewposition_Click(object sender, RoutedEventArgs e)
         {
-            AddNewSector newSector = new AddNewSector();
-            newSector.Show();
-            //AddNewProsition newPosition = new AddNewProsition();
-            //newPosition.Show();
+            AddNewProsition newPosition = new AddNewProsition();
+            newPosition.Show();
         }
     }
 }

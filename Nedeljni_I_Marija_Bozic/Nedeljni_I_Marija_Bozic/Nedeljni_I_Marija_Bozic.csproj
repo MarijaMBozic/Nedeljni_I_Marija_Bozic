@@ -76,10 +76,14 @@
     </ApplicationDefinition>
     <Compile Include="Converters\BoolToVisibilityConverter.cs" />
     <Compile Include="Converters\BoolToVisibilityInverseConverter.cs" />
+    <Compile Include="Converters\LocalTeamAdminVisibilityConverter.cs" />
+    <Compile Include="Converters\SystemAdminVisibilityConverter.cs" />
+    <Compile Include="Converters\LocalAdminVisibilityConverter.cs" />
     <Compile Include="Converters\Level13VisibilityConverter.cs" />
     <Compile Include="Converters\Level3VisibilityConverter.cs" />
     <Compile Include="Converters\Level2VisibilityConverter.cs" />
     <Compile Include="Converters\Level12VisibilityConverter.cs" />
+    <Compile Include="Converters\TeamAdminVisibilityConverter.cs" />
     <Compile Include="Helpers\Logging.cs" />
     <Compile Include="Helpers\HashPasswordHelper.cs" />
     <Compile Include="Helpers\RandomString.cs" />

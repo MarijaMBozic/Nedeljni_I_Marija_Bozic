@@ -4,9 +4,75 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Nedeljni_I_Marija_Bozic.Views"
+         xmlns:converters="clr-namespace:Nedeljni_I_Marija_Bozic.Converters"
         mc:Ignorable="d"
         Title="AdminView" Height="450" Width="800">
+    <Window.Resources>
+        <ResourceDictionary>
+            <converters:SystemAdminVisibilityConverter x:Key="SystemAdminVisibilityConverter" />
+            <converters:TeamAdminVisibilityConverter x:Key="TeamAdminVisibilityConverter" />
+            <converters:LocalAdminVisibilityConverter x:Key="LocalAdminVisibilityConverter" />
+            <converters:LocalTeamAdminVisibilityConverter x:Key="LocalTeamAdminVisibilityConverter" />
+        </ResourceDictionary>
+    </Window.Resources>
     <Grid>
-        
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="20"/>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="6"/>
+            <ColumnDefinition Width="100"/>
+            <ColumnDefinition Width="6"/>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="6"/>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="6"/>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="6"/>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="6"/>
+            <ColumnDefinition Width="100"/>
+            <ColumnDefinition Width="50"/>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="20"/>
+            <RowDefinition Height="30"/>
+            <RowDefinition Height="6"/>
+            <RowDefinition Height="30"/>
+            <RowDefinition Height="6"/>
+            <RowDefinition Height="30"/>
+            <RowDefinition Height="6"/>
+            <RowDefinition Height="30"/>
+            <RowDefinition Height="6"/>
+            <RowDefinition Height="6"/>
+            <RowDefinition Height="30"/>
+            <RowDefinition Height="6"/>
+            <RowDefinition Height="30"/>
+            <RowDefinition Height="6"/>
+            <RowDefinition Height="30"/>
+            <RowDefinition Height="6"/>
+            <RowDefinition Height="30"/>
+            <RowDefinition Height="6"/>
+            <RowDefinition Height="30"/>
+            <RowDefinition Height="6"/>
+            <RowDefinition Height="30"/>
+            <RowDefinition Height="6"/>
+            <RowDefinition Height="30"/>
+            <RowDefinition Height="20"/>
+        </Grid.RowDefinitions>
+        <Label Grid.Column="1" Grid.Row="1" Name="lblUser" Content="Username:" HorizontalAlignment="Right"/>
+        <Label Grid.Column="3" Grid.Row="1" Name="lblUserName" Content="{Binding Admin.Username}" HorizontalAlignment="Center"/>
+        <Button Grid.Column="10" Grid.Row="1" Grid.ColumnSpan="5" Margin="70,0,5,0" Name="btnLogOut" Content="Log Out" Width="160" Height="20"
+               FontWeight="Bold" HorizontalAlignment="Left"/>
+        <Button Grid.Column="1" Grid.Row="7" Grid.ColumnSpan="5" Margin="0,0,5,0" Name="btnLevelOfresponsibiliti" Content="Add new manager level of responsibiliti" Width="220" Height="20"
+              FontWeight="Bold" HorizontalAlignment="Left" Visibility="{Binding Admin.AdministratorTypeName, Converter={StaticResource LocalAdminVisibilityConverter}}" />
+        <Button Grid.Column="7" Grid.Row="7" Grid.ColumnSpan="5" Margin="0,0,5,0" Name="btnWorkers" Content="All workers" Width="130" Height="20"
+              FontWeight="Bold" HorizontalAlignment="Left" Visibility="{Binding Admin.AdministratorTypeName, Converter={StaticResource LocalTeamAdminVisibilityConverter}}" />
+        <Button Grid.Column="7" Grid.Row="10" Grid.ColumnSpan="4" Margin="0,0,5,0" Name="btnAllMenagers" Content="All menagers" Width="130" Height="20"
+              FontWeight="Bold" HorizontalAlignment="Left" Visibility="{Binding Admin.AdministratorTypeName, Converter={StaticResource TeamAdminVisibilityConverter}}" />
+        <Button Grid.Column="10" Grid.Row="7" Grid.ColumnSpan="5" Margin="70,0,5,0" Name="btnSectors" Content="All sectors" Width="160" Height="20"
+              FontWeight="Bold" HorizontalAlignment="Left" Visibility="{Binding Admin.AdministratorTypeName, Converter={StaticResource SystemAdminVisibilityConverter}}" />
+        <Button Grid.Column="10" Grid.Row="10" Grid.ColumnSpan="5" Margin="70,0,5,0" Name="btnPosition" Content="Add position" Width="160" Height="20"
+              FontWeight="Bold" HorizontalAlignment="Left" Visibility="{Binding Admin.AdministratorTypeName, Converter={StaticResource SystemAdminVisibilityConverter}}"/>   
+
     </Grid>
 </Window>

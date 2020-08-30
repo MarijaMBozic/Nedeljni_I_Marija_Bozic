@@ -98,3 +98,6 @@ ClientConnectionId:3f570f50-f420-4615-96c8-944abf1449a2
 Error Number:201,State:4,Class:16] 
 [30/08/2020 09:54:50][AddNewPositionViewModel][Info][Succesfull add new position] 
 [30/08/2020 10:28:13][AddNewSectorViewModel][Info][Succesfull add new sector] 
+[30/08/2020 11:29:32][AddNewAdmnViewModel][Info][Succesfull add new Admin] 
+[30/08/2020 11:30:12][AddNewAdmnViewModel][Info][Succesfull add new Admin] 
+[30/08/2020 11:40:27][AddNewAdmnViewModel][Info][Succesfull add new Admin] 
